@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  CarListTableViewController.h
 //  iCarList
 //
 //  Created by Eric Labaci on 6/14/17.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface CarListTableViewController : UITableViewController
 
 @end
-
