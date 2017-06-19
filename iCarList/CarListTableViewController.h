@@ -10,4 +10,6 @@
 
 @interface CarListTableViewController : UITableViewController
 
+@property (strong, nonatomic) NSMutableArray *carIDArray;
+
 @end

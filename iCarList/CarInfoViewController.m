@@ -17,7 +17,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"didload bounds: %@", NSStringFromCGRect(self.photoScroller.bounds));
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,7 +28,7 @@
     [self.photoScroller setNeedsLayout];
     [self.photoScroller layoutIfNeeded];
     
-    NSLog(@"bounds: %@", NSStringFromCGRect(self.photoScroller.bounds));
+    self.photoScroller.URLArray = self.imageURLArray;
     
     [self.photoScroller loadGallery];
 }

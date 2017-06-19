@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4175B521EF85C4A005278D9 /* CarInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F4175B511EF85C4A005278D9 /* CarInfo.m */; };
 		F477E16D1EF814CC00A524F2 /* PhotoScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = F477E16C1EF814CC00A524F2 /* PhotoScroller.m */; };
 		F4B9A6141EF1CA74001E099C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9A6131EF1CA74001E099C /* main.m */; };
 		F4B9A6171EF1CA74001E099C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9A6161EF1CA74001E099C /* AppDelegate.m */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F4175B501EF85C4A005278D9 /* CarInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarInfo.h; sourceTree = "<group>"; };
+		F4175B511EF85C4A005278D9 /* CarInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarInfo.m; sourceTree = "<group>"; };
 		F477E16B1EF814CC00A524F2 /* PhotoScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoScroller.h; sourceTree = "<group>"; };
 		F477E16C1EF814CC00A524F2 /* PhotoScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoScroller.m; sourceTree = "<group>"; };
 		F4B9A60F1EF1CA74001E099C /* iCarList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCarList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +90,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4175B4E1EF85C15005278D9 /* Car Info */ = {
+			isa = PBXGroup;
+			children = (
+				F4175B501EF85C4A005278D9 /* CarInfo.h */,
+				F4175B511EF85C4A005278D9 /* CarInfo.m */,
+			);
+			name = "Car Info";
+			sourceTree = "<group>";
+		};
 		F477E16A1EF814BD00A524F2 /* PhotoScroller */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,9 +173,10 @@
 		F4B9A6491EF1CBBF001E099C /* Car List Table */ = {
 			isa = PBXGroup;
 			children = (
+				F4175B4E1EF85C15005278D9 /* Car Info */,
 				F4B9A64A1EF1CBE1001E099C /* TableViewController */,
-				F4B9A64F1EF1D357001E099C /* CarInfoViewController */,
 				F4B9A64E1EF1CBFC001E099C /* TableViewCell */,
+				F4B9A64F1EF1D357001E099C /* CarInfoViewController */,
 			);
 			name = "Car List Table";
 			sourceTree = "<group>";
@@ -331,6 +344,7 @@
 				F477E16D1EF814CC00A524F2 /* PhotoScroller.m in Sources */,
 				F4B9A6171EF1CA74001E099C /* AppDelegate.m in Sources */,
 				F4B9A6521EF1D36F001E099C /* CarInfoViewController.m in Sources */,
+				F4175B521EF85C4A005278D9 /* CarInfo.m in Sources */,
 				F4B9A6141EF1CA74001E099C /* main.m in Sources */,
 				F4B9A64D1EF1CBF7001E099C /* CarListTableViewCell.m in Sources */,
 				F4B9A6471EF1CB7A001E099C /* CarListTableViewController.m in Sources */,

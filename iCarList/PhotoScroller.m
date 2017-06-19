@@ -45,12 +45,7 @@
 }
 
 - (void)loadGallery {
-    NSArray *urlArray = @[@"http://www.carrosnaweb.com.br/imagensbd007/bmw-M3-2015-1.jpg",
-                          @"http://www.carrosnaweb.com.br/imagensbd007/bmw-M3-2015-2.jpg",
-                          @"http://www.carrosnaweb.com.br/imagensbd007/bmw-M3-2015-4.jpg",
-                          @"http://www.carrosnaweb.com.br/imagensbd007/bmw-M3-2015-5.jpg",
-                          @"http://www.carrosnaweb.com.br/imagensbd007/bmw-M3-2015-6.jpg"];
-    int pageCount = (int) urlArray.count;
+    int pageCount = (int) self.URLArray.count;
     
     //Setup scroll view
     int width = self.bounds.size.width;
@@ -67,9 +62,10 @@
     //Setup Each View Size
     CGRect ViewSize = scrollView.bounds;
     
-    for (NSString *stringURL in urlArray) {
+    for (NSString *stringURL in self.URLArray) {
         //Get image data from URL
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:stringURL]];
+        NSLog(@"Downloading... http://www.carrosnaweb.com.br/imagensbd007/%@", stringURL);
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.carrosnaweb.com.br/imagensbd007/%@", stringURL]]];
         UIImage *image = [UIImage imageWithData:data];
         
         //Create and set imageView

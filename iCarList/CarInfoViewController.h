@@ -11,7 +11,7 @@
 
 @interface CarInfoViewController : UIViewController
 
-@property (strong, nonatomic) NSArray *galleryImagesArray;
+@property (weak, nonatomic) NSArray *imageURLArray;
 
 @property (weak, nonatomic) IBOutlet PhotoScroller *photoScroller;
 

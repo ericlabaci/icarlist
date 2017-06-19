@@ -9,6 +9,7 @@
 #import "CarListTableViewController.h"
 #import "CarListTableViewCell.h"
 #import "CarInfoViewController.h"
+#import "CarInfo.h"
 
 @interface CarListTableViewController ()
 
@@ -24,6 +25,10 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.carIDArray = [NSMutableArray new];
+    for (int i = 100; i < 200; i++) {
+        [self.carIDArray addObject:[NSNumber numberWithInteger:i]];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,22 +43,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return (NSInteger)self.carIDArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CarListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CarInfoCell" forIndexPath:indexPath];
+    CarInfo *carInfo = [CarInfo new];
+    carInfo.carID = self.carIDArray[indexPath.row];
+    [carInfo fillImageURL];
     
-    //cell.imageCar.image = [UIImage imageNamed:@"bmw_M3_1.jpg"];
-    NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"http://www.carrosnaweb.com.br/imagensbd007/bmw-M3-2015-1.jpg"]];
-    cell.imageCar.image = [UIImage imageWithData:imageData];
-    cell.labelMake.text = @"BMW";
-    cell.labelModel.text = @"M3";
-    cell.labelYear.text = @"2018";
-    
-    cell.layer.backgroundColor = [UIColor colorWithRed:210/255.0 green:210/255.0 blue:210/255.0 alpha:1.0].CGColor;
-    cell.layer.masksToBounds = YES;
-    cell.layer.cornerRadius = 7.0f;
+    cell.carInfo = carInfo;
+    [cell updateInfo];
     
     return cell;
 }
@@ -96,8 +96,11 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    CarInfoViewController *vc = [segue destinationViewController];
-    vc.galleryImagesArray = [[NSArray alloc]initWithArray:[NSArray arrayWithObjects:@"http://www.carrosnaweb.com.br/imagensbd007/bmw-M3-2015-1.jpg", nil]];
+    CarInfoViewController *vc = [segue destinationViewController]; //Get view controller
+    NSIndexPath *path = [self.tableView indexPathForCell:sender];  //Get cell path
+    CarListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path]; //Get cell
+    
+    vc.imageURLArray = cell.carInfo.imageURLArray; //Set view controller imageGallery
 }
 
 @end
