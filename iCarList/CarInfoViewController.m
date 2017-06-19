@@ -17,13 +17,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [self setImageGallery:self.galleryImagesArray];
+    NSLog(@"didload bounds: %@", NSStringFromCGRect(self.photoScroller.bounds));
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidLayoutSubviews {
+    [self.photoScroller setNeedsLayout];
+    [self.photoScroller layoutIfNeeded];
+    
+    NSLog(@"bounds: %@", NSStringFromCGRect(self.photoScroller.bounds));
+    
+    [self.photoScroller loadGallery];
 }
 
 /*
@@ -35,10 +43,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-- (void)setImageGallery:(NSArray *)gallery {
-    self.imageView.image = [UIImage imageNamed:self.galleryImagesArray[0]];
-    NSLog(@"%@", gallery[0]);
-}
 
 @end

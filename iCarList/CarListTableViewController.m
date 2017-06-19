@@ -44,7 +44,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CarListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CarInfoCell" forIndexPath:indexPath];
     
-    cell.imageCar.image = [UIImage imageNamed:@"bmw_M3_1.jpg"];
+    //cell.imageCar.image = [UIImage imageNamed:@"bmw_M3_1.jpg"];
+    NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"http://www.carrosnaweb.com.br/imagensbd007/bmw-M3-2015-1.jpg"]];
+    cell.imageCar.image = [UIImage imageWithData:imageData];
     cell.labelMake.text = @"BMW";
     cell.labelModel.text = @"M3";
     cell.labelYear.text = @"2018";
@@ -95,10 +97,7 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     CarInfoViewController *vc = [segue destinationViewController];
-    vc.galleryImagesArray = [[NSArray alloc]initWithArray:[NSArray arrayWithObjects:@"bmw_M3_1", nil]];
-//    [vc setImageGallery:[NSArray arrayWithObjects:@"bmw_M3_1", nil]];
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    vc.galleryImagesArray = [[NSArray alloc]initWithArray:[NSArray arrayWithObjects:@"http://www.carrosnaweb.com.br/imagensbd007/bmw-M3-2015-1.jpg", nil]];
 }
 
 @end

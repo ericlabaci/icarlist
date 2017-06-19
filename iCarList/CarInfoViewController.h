@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PhotoScroller.h"
 
 @interface CarInfoViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-
 @property (strong, nonatomic) NSArray *galleryImagesArray;
+
+@property (weak, nonatomic) IBOutlet PhotoScroller *photoScroller;
 
 @end

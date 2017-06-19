@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F477E16D1EF814CC00A524F2 /* PhotoScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = F477E16C1EF814CC00A524F2 /* PhotoScroller.m */; };
 		F4B9A6141EF1CA74001E099C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9A6131EF1CA74001E099C /* main.m */; };
 		F4B9A6171EF1CA74001E099C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9A6161EF1CA74001E099C /* AppDelegate.m */; };
 		F4B9A61D1EF1CA74001E099C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B9A61B1EF1CA74001E099C /* Main.storyboard */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F477E16B1EF814CC00A524F2 /* PhotoScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoScroller.h; sourceTree = "<group>"; };
+		F477E16C1EF814CC00A524F2 /* PhotoScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoScroller.m; sourceTree = "<group>"; };
 		F4B9A60F1EF1CA74001E099C /* iCarList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCarList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B9A6131EF1CA74001E099C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F4B9A6151EF1CA74001E099C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -84,6 +87,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F477E16A1EF814BD00A524F2 /* PhotoScroller */ = {
+			isa = PBXGroup;
+			children = (
+				F477E16B1EF814CC00A524F2 /* PhotoScroller.h */,
+				F477E16C1EF814CC00A524F2 /* PhotoScroller.m */,
+			);
+			name = PhotoScroller;
+			sourceTree = "<group>";
+		};
 		F4B9A6061EF1CA74001E099C = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +119,7 @@
 		F4B9A6111EF1CA74001E099C /* iCarList */ = {
 			isa = PBXGroup;
 			children = (
+				F477E16A1EF814BD00A524F2 /* PhotoScroller */,
 				F4B9A6491EF1CBBF001E099C /* Car List Table */,
 				F4B9A6151EF1CA74001E099C /* AppDelegate.h */,
 				F4B9A6161EF1CA74001E099C /* AppDelegate.m */,
@@ -315,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F477E16D1EF814CC00A524F2 /* PhotoScroller.m in Sources */,
 				F4B9A6171EF1CA74001E099C /* AppDelegate.m in Sources */,
 				F4B9A6521EF1D36F001E099C /* CarInfoViewController.m in Sources */,
 				F4B9A6141EF1CA74001E099C /* main.m in Sources */,
@@ -549,6 +563,7 @@
 				F4B9A63E1EF1CA74001E099C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F4B9A63F1EF1CA74001E099C /* Build configuration list for PBXNativeTarget "iCarListTests" */ = {
 			isa = XCConfigurationList;
@@ -557,6 +572,7 @@
 				F4B9A6411EF1CA74001E099C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F4B9A6421EF1CA74001E099C /* Build configuration list for PBXNativeTarget "iCarListUITests" */ = {
 			isa = XCConfigurationList;
@@ -565,6 +581,7 @@
 				F4B9A6441EF1CA74001E099C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
