@@ -1,39 +1,29 @@
 //
-//  CarInfoViewController.m
+//  ConfigurationViewController.m
 //  iCarList
 //
-//  Created by Eric Labaci on 6/14/17.
+//  Created by Eric Labaci on 6/22/17.
 //  Copyright © 2017 Eric Labaci. All rights reserved.
 //
 
-#import "CarInfoViewController.h"
+#import "ConfigurationViewController.h"
 
-@interface CarInfoViewController ()
+@interface ConfigurationViewController ()
 
 @end
 
-@implementation CarInfoViewController
+@implementation ConfigurationViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.buttonEraseData.layer.masksToBounds = YES;
+    self.buttonEraseData.layer.cornerRadius = 5.0f;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)viewDidLayoutSubviews {
-    [self.photoScroller setNeedsLayout];
-    [self.photoScroller layoutIfNeeded];
-    
-    self.photoScroller.URLArray = self.imageURLArray;
-    
-    [self.photoScroller loadGallery];
-    
-    self.labelTitle.text = [NSString stringWithFormat:@"%@ %@ %@", self.carInfo.make, self.carInfo.model, self.carInfo.year];
-    
 }
 
 /*
@@ -45,5 +35,15 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)eraseAllData:(id)sender {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSArray *keys = [[userDefaults dictionaryRepresentation] allKeys];
+    
+    for (NSString *key in keys) {
+        [userDefaults removeObjectForKey:key];
+    }
+    [userDefaults synchronize];
+}
 
 @end

@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddCarViewController.h"
 
-@interface CarListTableViewController : UITableViewController
+@interface CarListTableViewController : UITableViewController <AddCarViewControllerDelegate> {
+    UIView *overlay;
+    NSUserDefaults *userDefaults;
+}
 
-@property (strong, nonatomic) NSMutableArray *carIDArray;
+@property (strong, nonatomic) NSMutableArray *carArray;
 
 @end

@@ -7,39 +7,36 @@
 //
 
 #import "CarInfo.h"
+#import "Defines.h"
+
+#define KEY_MAKE @"make"
+#define KEY_MODEL @"model"
+#define KEY_YEAR @"year"
 
 @implementation CarInfo
 
-- (void)fillImageURL {
-    self.stringURL = [NSString stringWithFormat:@"http://www.carrosnaweb.com.br/fichadetalhe.asp?codigo=%ld", [self.carID integerValue]];
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.stringURL]];
-    NSString *html = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+- (void)generateKey {
+    key = [NSString stringWithFormat:@"%@%@%@%@", KEY_TYPE_CAR, [self.make lowercaseString], [self.model lowercaseString], [self.year lowercaseString]];
+}
+
+- (NSString *)getKey {
+    return key;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.make forKey:KEY_MAKE];
+    [aCoder encodeObject:self.model forKey:KEY_MODEL];
+    [aCoder encodeObject:self.year forKey:KEY_YEAR];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
     
-    NSRange searchRange = NSMakeRange(0, html.length);
-    NSRange resultRange;
-    NSMutableArray *array = [NSMutableArray new];
+    self.make = [aDecoder decodeObjectForKey:KEY_MAKE];
+    self.model = [aDecoder decodeObjectForKey:KEY_MODEL];
+    self.year = [aDecoder decodeObjectForKey:KEY_YEAR];
     
-    int i = 0;
-    //Find all car images
-    while(YES) {
-        resultRange = [html rangeOfString:@"imagensbd007" options:0 range:searchRange];
-        if (resultRange.location == NSNotFound) {
-            break;
-        }
-        
-        resultRange.location += resultRange.length + 1;
-        resultRange.length = [html rangeOfString:@"\"" options:0 range:NSMakeRange(resultRange.location, 100)].location - resultRange.location;
-        
-        if ([html rangeOfString:@"thumb" options:0 range:resultRange].location == NSNotFound) {
-            NSString *imageURL = [html substringWithRange:resultRange];
-            NSLog(@"%@", imageURL);
-            [array addObject:imageURL];
-            i++;
-        }
-        
-        searchRange = NSMakeRange(resultRange.location + 1, html.length - (resultRange.location + 1));
-    }
-    self.imageURLArray = [[NSOrderedSet orderedSetWithArray:array] array];
+    return self;
 }
 
 @end

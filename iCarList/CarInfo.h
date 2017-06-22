@@ -8,12 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CarInfo : NSObject
+@interface CarInfo : NSCoder <NSCoding> {
+    NSString *key;
+}
 
-@property (weak, nonatomic) NSString *stringURL;
-@property (strong, nonatomic) NSArray *imageURLArray;
-@property (weak, nonatomic) NSNumber *carID;
+@property (strong, nonatomic) NSString *model;
+@property (strong, nonatomic) NSString *make;
+@property (strong, nonatomic) NSString *year;
 
-- (void)fillImageURL;
+- (void)generateKey;
+- (NSString *)getKey;
 
 @end

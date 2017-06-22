@@ -11,13 +11,13 @@
 
 @interface CarListTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) CarInfo *carInfo;
+@property (strong, atomic) CarInfo *carInfo;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelMake;
 @property (weak, nonatomic) IBOutlet UILabel *labelModel;
 @property (weak, nonatomic) IBOutlet UILabel *labelYear;
 @property (weak, nonatomic) IBOutlet UIImageView *imageCar;
 
-- (void)updateInfo;
+//- (void)updateInfo;
 
 @end
