@@ -37,13 +37,28 @@
 */
 
 - (IBAction)eraseAllData:(id)sender {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSArray *keys = [[userDefaults dictionaryRepresentation] allKeys];
+    //Create alert
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete all data?" message:@"This action cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+    //Create action for Delete button
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
+        //Get user defaults and keys
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSArray *keys = [[userDefaults dictionaryRepresentation] allKeys];
+        //Iterate trough all keys and remove them
+        for (NSString *key in keys) {
+            [userDefaults removeObjectForKey:key];
+        }
+        //Synchronize changes
+        [userDefaults synchronize];
+    }];
+    //Create action for Cancel button
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    //Add actions to alert
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
     
-    for (NSString *key in keys) {
-        [userDefaults removeObjectForKey:key];
-    }
-    [userDefaults synchronize];
+    //Present alert
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

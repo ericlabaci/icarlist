@@ -12,6 +12,7 @@
 @interface CarListTableViewController : UITableViewController <AddCarViewControllerDelegate> {
     UIView *overlay;
     NSUserDefaults *userDefaults;
+    NSSortDescriptor *sort;
 }
 
 @property (strong, nonatomic) NSMutableArray *carArray;

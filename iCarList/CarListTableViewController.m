@@ -12,6 +12,8 @@
 #import "CarInfo.h"
 #import "Defines.h"
 
+
+
 @interface CarListTableViewController ()
 
 @end
@@ -29,6 +31,7 @@
     
     //Create data array
     self.carArray = [NSMutableArray new];
+    sort = [[NSSortDescriptor alloc] initWithKey:@"make" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     
     //Load User Default's reference
     userDefaults = [NSUserDefaults standardUserDefaults];
@@ -42,13 +45,13 @@
             [self.carArray addObject:[NSKeyedUnarchiver unarchiveObjectWithData:carData]];
         }
     }
+    [self sortCarArray];
     
     //Enable paging in tableView
     self.tableView.pagingEnabled = YES;
     
     //Check if there are no cars added
     if (self.carArray.count == 0) {
-        NSLog(@"No car found!");
         int overlayWidth;
         int overlayHeight = 50;
         
@@ -63,7 +66,7 @@
         //Set label size to fit text
         [label setFrame:CGRectMake(0, 0, overlayWidth, overlayHeight)];
         
-        //Create overlay so that the text fits and configure it`s appearance
+        //Create overlay so that the text fits and configure it's appearance
         overlay = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - overlayWidth / 2, 35, overlayWidth, overlayHeight)];
         overlay.layer.masksToBounds = YES;
         overlay.layer.cornerRadius = 5.0f;
@@ -93,7 +96,7 @@
     return (NSInteger)self.carArray.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CarListTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CarListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CarInfoCell" forIndexPath:indexPath];
     CarInfo *carInfo = self.carArray[indexPath.row];
     
@@ -102,7 +105,14 @@
     cell.labelModel.text = carInfo.model;
     cell.labelMake.text = carInfo.make;
     cell.labelYear.text = carInfo.year;
-    
+    if (carInfo.image != nil) {
+        cell.imageCar.image = carInfo.image;
+    } else {
+        cell.imageCar.image = [UIImage imageNamed:@"ImageNotAvailable"];
+    }
+    cell.imageCar.layer.masksToBounds = YES;
+    cell.imageCar.layer.cornerRadius = 5.0f;
+
     return cell;
 }
 
@@ -172,12 +182,17 @@
         self.tableView.userInteractionEnabled = YES;
     }
     [self.carArray addObject:carInfo];
+    [self sortCarArray];
     [self.tableView reloadData];
     
     NSData *carData = [NSKeyedArchiver archivedDataWithRootObject:carInfo];
     
     [userDefaults setObject:carData forKey:[carInfo getKey]];
     return [userDefaults synchronize];
+}
+
+- (void)sortCarArray {
+    [self.carArray sortUsingDescriptors:@[sort]];
 }
 
 @end

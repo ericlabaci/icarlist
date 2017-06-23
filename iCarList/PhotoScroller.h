@@ -13,7 +13,7 @@
     UIPageControl *pageControl;
 }
 
-@property (strong, nonatomic) NSArray *URLArray;
+@property (strong, nonatomic) NSArray *imageArray;
 
 - (void)loadGallery;
 

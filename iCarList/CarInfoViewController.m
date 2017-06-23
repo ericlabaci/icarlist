@@ -28,7 +28,11 @@
     [self.photoScroller setNeedsLayout];
     [self.photoScroller layoutIfNeeded];
     
-    self.photoScroller.URLArray = self.imageURLArray;
+    if (self.carInfo.image != nil) {
+        self.photoScroller.imageArray = @[self.carInfo.image];
+    } else {
+        self.photoScroller.imageArray = @[];
+    }
     
     [self.photoScroller loadGallery];
     

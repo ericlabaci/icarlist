@@ -18,6 +18,4 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelYear;
 @property (weak, nonatomic) IBOutlet UIImageView *imageCar;
 
-//- (void)updateInfo;
-
 @end

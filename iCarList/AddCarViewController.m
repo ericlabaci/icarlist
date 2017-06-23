@@ -54,6 +54,7 @@
     return YES;
 }
 
+//Set text field description label to black when selected
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     if ([textField isKindOfClass:[NextTextField class]]) {
         NextTextField *nextTextField = (NextTextField *)textField;
@@ -71,20 +72,24 @@
 }
 */
 
+//Clear all text fields
 - (IBAction)clearAll:(id)sender {
     self.textFieldModel.text = @"";
     self.textFieldMake.text = @"";
     self.textFieldYear.text = @"";
 }
 
+//Add car
 - (IBAction)addCar:(id)sender {
-    CarInfo *carInfo = [CarInfo new];
-    bool allFilled = YES;
+    CarInfo *carInfo = [CarInfo new]; //Create new CarInfo
+    bool allFilled = YES; //Control variable to check if everything is filled
     
+    //Get text field strings
     NSString *model = self.textFieldModel.text;
     NSString *make = self.textFieldMake.text;
     NSString *year = self.textFieldYear.text;
     
+    //Check if there are empty text fields
     if ([model length] == 0) {
         allFilled = NO;
         NextTextField *nextTextField = (NextTextField *)self.textFieldModel;
@@ -101,11 +106,14 @@
         [nextTextField.descriptionLabel setTextColor:[UIColor redColor]];
     }
     
+    //If all text fields are filled, the CarInfo can be set and saved
     if (allFilled) {
-        carInfo.model = self.textFieldModel.text;
-        carInfo.make = self.textFieldMake.text;
-        carInfo.year = self.textFieldYear.text;
+        carInfo.model = model;
+        carInfo.make = make;
+        carInfo.year = year;
+        carInfo.image = selectedImage;
     
+        //Try to save CarInfo
         if ([self.delegate saveCar:carInfo]) {
             [self.navigationController popViewControllerAnimated:YES];
         } else {
@@ -114,8 +122,25 @@
     }
 }
 
+//Open a UIImagerPickerController to select a image from the photo gallery
 - (IBAction)attachImage:(id)sender {
-    NSLog(@"Attatching image");
+    UIImagePickerController *imagePicker = [UIImagePickerController new];
+    imagePicker.delegate = self;
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+//Get picked image from the photo gallery
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    id image = info[UIImagePickerControllerOriginalImage]; //Get image
+    if ([image isKindOfClass:[UIImage class]]) { //Verify that it is an image
+        selectedImage = (UIImage *)image;
+        self.imageView.image = selectedImage;
+    }
+    
+    //Dismiss controller
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -46,7 +46,7 @@
 
 - (void)loadGallery {
     //Get image number
-    int pageCount = (int) self.URLArray.count;
+    int pageCount = (int) self.imageArray.count;
     
     //Setup scroll view
     int width = self.bounds.size.width;
@@ -72,12 +72,7 @@
         scrollView.contentSize = CGSizeMake(width, height);
         [scrollView addSubview:imgView];
     } else {
-        for (NSString *stringURL in self.URLArray) {
-            //Get image data from URL
-            NSLog(@"Downloading... http://www.carrosnaweb.com.br/imagensbd007/%@", stringURL);
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.carrosnaweb.com.br/imagensbd007/%@", stringURL]]];
-            UIImage *image = [UIImage imageWithData:data];
-            
+        for (UIImage *image in self.imageArray) {
             //Create and set imageView
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:ViewSize];
             imgView.image = image;
@@ -125,7 +120,7 @@
 /* DO NOT USE */
 - (void)loadGalleryURL {
     //Get image number
-    int pageCount = (int) self.URLArray.count;
+    int pageCount = (int) self.imageArray.count;
     
     //Setup scroll view
     int width = self.bounds.size.width;
@@ -152,7 +147,7 @@
         scrollView.contentSize = CGSizeMake(width, height);
         [scrollView addSubview:imgView];
     } else {
-        for (NSString *stringURL in self.URLArray) {
+        for (NSString *stringURL in self.imageArray) {
             //Get image data from URL
             NSLog(@"Downloading... http://www.carrosnaweb.com.br/imagensbd007/%@", stringURL);
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.carrosnaweb.com.br/imagensbd007/%@", stringURL]]];

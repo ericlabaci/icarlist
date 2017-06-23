@@ -15,7 +15,9 @@
 
 @end
 
-@interface AddCarViewController : UIViewController <UITextFieldDelegate>
+@interface AddCarViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
+    UIImage *selectedImage;
+}
 
 @property (weak, nonatomic) id <AddCarViewControllerDelegate> delegate;
 
