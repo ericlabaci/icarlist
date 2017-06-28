@@ -42,142 +42,108 @@
 - (void)updateLayout {
     [self setNeedsLayout];
     [self layoutIfNeeded];
-}
-
-- (void)loadGallery {
-    //Get image number
-    int pageCount = (int) self.imageArray.count;
     
-    //Setup scroll view
-    int width = self.bounds.size.width;
-    int height = self.bounds.size.height;
+    width = self.bounds.size.width;
+    height = self.bounds.size.height;
     
+    //Create scrollView
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, width, height)];
     scrollView.backgroundColor = [UIColor clearColor];
     scrollView.pagingEnabled = YES;
-    scrollView.contentSize = CGSizeMake(pageCount * width, height);
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.bounces = NO;
     scrollView.delegate = self;
     
-    //Setup Each View Size
-    CGRect ViewSize = scrollView.bounds;
-    
-    if (pageCount == 0) {
-        UIImage *image = [UIImage imageNamed:@"ImageNotAvailable.jpeg"];
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:ViewSize];
-        imgView.image = image;
-        imgView.contentMode = UIViewContentModeScaleAspectFill;
-        imgView.clipsToBounds = YES;
-        scrollView.contentSize = CGSizeMake(width, height);
-        [scrollView addSubview:imgView];
-    } else {
-        for (UIImage *image in self.imageArray) {
-            //Create and set imageView
-            UIImageView *imgView = [[UIImageView alloc] initWithFrame:ViewSize];
-            imgView.image = image;
-            imgView.contentMode = UIViewContentModeScaleAspectFill;
-            imgView.clipsToBounds = YES;
-            [scrollView addSubview:imgView];
-            
-            //Update ViewSize offset
-            ViewSize = CGRectOffset(ViewSize, width, 0);
-        }
-    }
-    
     [self addSubview:scrollView];
     
-    width = pageCount * 12;
-    height = 37;
+    //No images added yet
+    imagesAdded = 0;
     
-    pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.bounds.size.width / 2 - width / 2, self.bounds.size.height - 45, width, height)];
-    pageControl.numberOfPages = pageCount;
+    //Create pageControl and configure it
+    pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(width / 2, height - 45, 0, 37)];
+    pageControl.numberOfPages = imagesAdded;
     pageControl.currentPage = 0;
     pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
     pageControl.pageIndicatorTintColor = [UIColor grayColor];
     [pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
     
     [self addSubview:pageControl];
+    
+    ViewSize = scrollView.bounds;
+    
+    [self addNotAvailableImage];
 }
 
+- (void)loadGallery {
+    //Add all images in the array
+    for (UIImage *image in imageArray) {
+        [self addImage:image];
+    }
+    
+    //If no image was added, add ImageNotAvailable image
+    //If images were added, add UIPageControl
+    if (imagesAdded == 0) {
+        [self addNotAvailableImage];
+    }
+}
+
+//Adds image to the gallery
+- (void)addImage:(UIImage *)image {
+    [self addImage:image incrementImagesAdded:YES];
+}
+
+- (void)addImage:(UIImage *)image incrementImagesAdded:(bool)inc {
+    //Create UIImageView and set it
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:ViewSize];
+    imageView.image = image;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
+    
+    //Add to the scroll view
+    [scrollView addSubview:imageView];
+    
+    if (inc) {
+        //Increment images added
+        imagesAdded++;
+        
+        //Update ViewSize
+        ViewSize = CGRectOffset(ViewSize, width, 0);
+        
+        //Update pageControl
+        [pageControl setFrame:CGRectMake(width / 2 - imagesAdded * 6, height - 45, imagesAdded * 12, 37)];
+        pageControl.numberOfPages = imagesAdded;
+    }
+    //Update scrollView contentSize
+    scrollView.contentSize = CGSizeMake(imagesAdded * width, height);
+}
+
+- (void)addNotAvailableImage {
+    UIImage *image = [UIImage imageNamed:@"ImageNotAvailable.jpeg"];
+    [self addImage:image incrementImagesAdded:NO];
+}
+
+- (void)setImageArray:(NSMutableArray *)array {
+    imageArray = array;
+}
+
+//Get current page being displayed
 - (int)currentPage {
     return (int) (scrollView.contentOffset.x / scrollView.bounds.size.width);
 }
 
+//Update current page when the user ends dragging
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     pageControl.currentPage = [self currentPage];
 }
 
+//Update current page when the view stopped moving
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     pageControl.currentPage = [self currentPage];
 }
 
+//Change image displayed when the user clicks on the page controller
 - (void)changePage:(UIPageControl *)sender {
     [scrollView setContentOffset:CGPointMake(sender.currentPage * self.bounds.size.width, 0) animated:YES];
-}
-
-
-/* DO NOT USE */
-- (void)loadGalleryURL {
-    //Get image number
-    int pageCount = (int) self.imageArray.count;
-    
-    //Setup scroll view
-    int width = self.bounds.size.width;
-    int height = self.bounds.size.height;
-    
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, width, height)];
-    scrollView.backgroundColor = [UIColor clearColor];
-    scrollView.pagingEnabled = YES;
-    scrollView.contentSize = CGSizeMake(pageCount * width, height);
-    scrollView.showsHorizontalScrollIndicator = NO;
-    scrollView.bounces = NO;
-    scrollView.delegate = self;
-    
-    //Setup Each View Size
-    CGRect ViewSize = scrollView.bounds;
-    
-    if (pageCount == 0) {
-        NSLog(@"pagecount == 0");
-        UIImage *image = [UIImage imageNamed:@"ImageNotAvailable.jpeg"];
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:ViewSize];
-        imgView.image = image;
-        imgView.contentMode = UIViewContentModeScaleAspectFill;
-        imgView.clipsToBounds = YES;
-        scrollView.contentSize = CGSizeMake(width, height);
-        [scrollView addSubview:imgView];
-    } else {
-        for (NSString *stringURL in self.imageArray) {
-            //Get image data from URL
-            NSLog(@"Downloading... http://www.carrosnaweb.com.br/imagensbd007/%@", stringURL);
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.carrosnaweb.com.br/imagensbd007/%@", stringURL]]];
-            UIImage *image = [UIImage imageWithData:data];
-        
-            //Create and set imageView
-            UIImageView *imgView = [[UIImageView alloc] initWithFrame:ViewSize];
-            imgView.image = image;
-            imgView.contentMode = UIViewContentModeScaleAspectFill;
-            imgView.clipsToBounds = YES;
-            [scrollView addSubview:imgView];
-        
-            //Update ViewSize offset
-            ViewSize = CGRectOffset(ViewSize, width, 0);
-        }
-    }
-    
-    [self addSubview:scrollView];
-    
-    width = pageCount * 12;
-    height = 37;
-    
-    pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(self.bounds.size.width / 2 - width / 2, self.bounds.size.height - 45, width, height)];
-    pageControl.numberOfPages = pageCount;
-    pageControl.currentPage = 0;
-    pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
-    pageControl.pageIndicatorTintColor = [UIColor grayColor];
-    [pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
-    
-    [self addSubview:pageControl];
 }
 
 @end

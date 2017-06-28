@@ -12,8 +12,6 @@
 #import "CarInfo.h"
 #import "Defines.h"
 
-
-
 @interface CarListTableViewController ()
 
 @end
@@ -38,17 +36,24 @@
     
     NSArray *keys = [[userDefaults dictionaryRepresentation] allKeys];
     
-    for (NSString *key in keys) {
-        NSRange range = KEY_RANGE;
-        if ([[key substringWithRange:range] isEqualToString:KEY_TYPE_CAR]) {
-            NSData *carData = [userDefaults objectForKey:key];
-            [self.carArray addObject:[NSKeyedUnarchiver unarchiveObjectWithData:carData]];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void) {
+        for (NSString *key in keys) {
+            NSRange range = KEY_RANGE;
+            if ([[key substringWithRange:range] isEqualToString:KEY_TYPE_CAR]) {
+                NSData *carData = [userDefaults objectForKey:key];
+                [self.carArray addObject:[NSKeyedUnarchiver unarchiveObjectWithData:carData]];
+            }
         }
-    }
-    [self sortCarArray];
+        [self sortCarArray];
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            [self.tableView reloadData];
+        });
+    });
     
     //Enable paging in tableView
     self.tableView.pagingEnabled = YES;
+    
+    overlayIsShown = NO;
     
     //Check if there are no cars added
     if (self.carArray.count == 0) {
@@ -77,6 +82,7 @@
         
         [self.view addSubview:overlay];
         
+        overlayIsShown = YES;
         self.tableView.userInteractionEnabled = NO;
     }
 }
@@ -105,13 +111,19 @@
     cell.labelModel.text = carInfo.model;
     cell.labelMake.text = carInfo.make;
     cell.labelYear.text = carInfo.year;
-    if (carInfo.image != nil) {
-        cell.imageCar.image = carInfo.image;
+    if (carInfo.imageArray != nil && carInfo.imageArray.count > 0) {
+        cell.imageCar.image = carInfo.imageArray[0];
     } else {
         cell.imageCar.image = [UIImage imageNamed:@"ImageNotAvailable"];
     }
     cell.imageCar.layer.masksToBounds = YES;
     cell.imageCar.layer.cornerRadius = 5.0f;
+    
+    if (overlayIsShown) {
+        overlayIsShown = NO;
+        [overlay removeFromSuperview];
+        self.tableView.userInteractionEnabled = YES;
+    }
 
     return cell;
 }
@@ -157,7 +169,7 @@
     //Check if next screen is the Add Car Screen
     if ([[segue identifier] isEqualToString:@"ShowAddCarViewController"]) {
         AddCarViewController *addCarVC = [segue destinationViewController]; //Get view controller
-        addCarVC.delegate = self;
+        addCarVC.delegate = self; //Set delegate
     } else {
         CarInfoViewController *vc = [segue destinationViewController]; //Get view controller
         NSIndexPath *path = [self.tableView indexPathForCell:sender];  //Get cell path
@@ -184,15 +196,24 @@
     [self.carArray addObject:carInfo];
     [self sortCarArray];
     [self.tableView reloadData];
-    
-    NSData *carData = [NSKeyedArchiver archivedDataWithRootObject:carInfo];
-    
-    [userDefaults setObject:carData forKey:[carInfo getKey]];
-    return [userDefaults synchronize];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void) {
+        NSData *carData = [NSKeyedArchiver archivedDataWithRootObject:carInfo];
+        
+        [userDefaults setObject:carData forKey:[carInfo getKey]];
+    });
+    return YES;
 }
 
 - (void)sortCarArray {
     [self.carArray sortUsingDescriptors:@[sort]];
+}
+
+- (IBAction)searchSort:(id)sender {
+    UIAlertController *notAvailableAlert = [UIAlertController alertControllerWithTitle:@"Ooops" message:@"Not available yet :(" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionOK = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    
+    [notAvailableAlert addAction:actionOK];
+    [self presentViewController:notAvailableAlert animated:YES completion:nil];
 }
 
 @end

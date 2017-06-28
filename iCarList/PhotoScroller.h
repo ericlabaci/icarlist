@@ -11,10 +11,15 @@
 @interface PhotoScroller : UIView <UIScrollViewDelegate> {
     UIScrollView *scrollView;
     UIPageControl *pageControl;
+    NSMutableArray *imageArray;
+    int imagesAdded;
+    CGRect ViewSize;
+    int width;
+    int height;
 }
 
-@property (strong, nonatomic) NSArray *imageArray;
-
+- (void)setImageArray:(NSMutableArray *)array;
 - (void)loadGallery;
+- (void)addImage:(UIImage *)image;
 
 @end

@@ -18,4 +18,5 @@
 @property (weak, nonatomic) IBOutlet PhotoScroller *photoScroller;
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
 
+- (IBAction)edit:(id)sender;
 @end
