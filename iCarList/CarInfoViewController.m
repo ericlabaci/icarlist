@@ -28,16 +28,11 @@
     [self.photoScroller setNeedsLayout];
     [self.photoScroller layoutIfNeeded];
     
-    if (self.carInfo.image != nil) {
-        self.photoScroller.imageArray = @[self.carInfo.image];
-    } else {
-        self.photoScroller.imageArray = @[];
-    }
+    [self.photoScroller setImageArray:self.carInfo.imageArray];
     
     [self.photoScroller loadGallery];
     
     self.labelTitle.text = [NSString stringWithFormat:@"%@ %@ %@", self.carInfo.make, self.carInfo.model, self.carInfo.year];
-    
 }
 
 /*
@@ -49,5 +44,13 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)edit:(id)sender {
+    UIAlertController *notAvailableAlert = [UIAlertController alertControllerWithTitle:@"Ooops" message:@"Not available yet :(" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionOK = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    
+    [notAvailableAlert addAction:actionOK];
+    [self presentViewController:notAvailableAlert animated:YES completion:nil];
+}
 
 @end

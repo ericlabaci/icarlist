@@ -10,9 +10,6 @@
 #import "NextTextField.h"
 #import "Defines.h"
 
-#define START_YEAR 1900
-#define END_YEAR 2018
-
 @interface AddCarViewController ()
 
 @end
@@ -32,6 +29,11 @@
     self.textFieldModel.delegate = self;
     self.textFieldMake.delegate = self;
     self.textFieldYear.delegate = self;
+    
+    imageArray = [NSMutableArray new];
+    
+    self.imageGallery.layer.masksToBounds = YES;
+    self.imageGallery.layer.cornerRadius = 5.0f;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,6 +51,8 @@
         } else {
             [textField resignFirstResponder];
         }
+    } else {
+        [self attachImageFromURLAction:textField.text];
     }
     
     return YES;
@@ -74,9 +78,18 @@
 
 //Clear all text fields
 - (IBAction)clearAll:(id)sender {
-    self.textFieldModel.text = @"";
-    self.textFieldMake.text = @"";
-    self.textFieldYear.text = @"";
+    NextTextField *textField;
+    textField = (NextTextField *) self.textFieldModel;
+    textField.text = @"";
+    textField.descriptionLabel.textColor = [UIColor blackColor];
+    
+    textField = (NextTextField *) self.textFieldMake;
+    textField.text = @"";
+    textField.descriptionLabel.textColor = [UIColor blackColor];
+    
+    textField = (NextTextField *) self.textFieldYear;
+    textField.text = @"";
+    textField.descriptionLabel.textColor = [UIColor blackColor];
 }
 
 //Add car
@@ -111,7 +124,7 @@
         carInfo.model = model;
         carInfo.make = make;
         carInfo.year = year;
-        carInfo.image = selectedImage;
+        carInfo.imageArray = imageArray;
     
         //Try to save CarInfo
         if ([self.delegate saveCar:carInfo]) {
@@ -124,23 +137,144 @@
 
 //Open a UIImagerPickerController to select a image from the photo gallery
 - (IBAction)attachImage:(id)sender {
-    UIImagePickerController *imagePicker = [UIImagePickerController new];
-    imagePicker.delegate = self;
-    [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    //Dismiss keyboard
+    [self.textFieldModel resignFirstResponder];
+    [self.textFieldMake resignFirstResponder];
+    [self.textFieldYear resignFirstResponder];
     
-    [self presentViewController:imagePicker animated:YES completion:nil];
+    //Action sheet to select image source
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Attach Image" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    //Alert action to attach image from photo library
+    UIAlertAction *actionAttachLibrary = [UIAlertAction actionWithTitle:@"Attach from Photo Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *act) {
+        UIImagePickerController *imagePicker = [UIImagePickerController new];
+        imagePicker.delegate = self;
+        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+    
+    //Alert action to attach image form URL (image is downloaded)
+    UIAlertAction *actionAttachURL = [UIAlertAction actionWithTitle:@"Attach from the Web" style:UIAlertActionStyleDefault handler:^(UIAlertAction *act) {
+        //Alert to enter image URL
+        UIAlertController *alertURL = [UIAlertController alertControllerWithTitle:@"Attach from the Web" message:@"Enter image URL or search the web" preferredStyle:UIAlertControllerStyleAlert];
+        
+        //Alert action to download image from specified URL
+        UIAlertAction *actionAttach = [UIAlertAction actionWithTitle:@"Attach from URL" style:UIAlertActionStyleDefault handler:^(UIAlertAction *act) {
+            [self attachImageFromURLAction:alertURL.textFields[0].text];
+        }];
+        
+        UIAlertAction *actionWebView = [UIAlertAction actionWithTitle:@"Search the Web" style:UIAlertActionStyleDefault handler:^(UIAlertAction *arc) {
+            NSString *searchString = [NSString new];
+            int makeLength = (int)self.textFieldMake.text.length;
+            int modelLength = (int)self.textFieldModel.text.length;
+            int yearLength = (int)self.textFieldYear.text.length;
+            WebViewController *webViewController;
+            
+            if (makeLength > 0) {
+                searchString = [NSString stringWithFormat:@"%@", self.textFieldMake.text];
+            }
+            if (modelLength > 0) {
+                if (searchString.length > 0) {
+                    searchString = [NSString stringWithFormat:@"%@+%@", searchString, self.textFieldModel.text];
+                } else {
+                    searchString = [NSString stringWithFormat:@"%@", self.textFieldModel.text];
+                }
+            }
+            if (searchString.length > 0) {
+                if (yearLength > 0) {
+                    searchString = [NSString stringWithFormat:@"%@+%@", searchString, self.textFieldYear.text];
+                }
+                webViewController = [[WebViewController alloc] initWithSearchString:searchString];
+            } else {
+                webViewController = [[WebViewController alloc] initWithNibName:nil bundle:nil];
+            }
+            
+            webViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            webViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            webViewController.modalPresentationCapturesStatusBarAppearance = YES;
+            webViewController.delegate = self;
+            [self presentViewController:webViewController animated:YES completion:nil];
+        }];
+        
+        //Alert action to cancel
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+        
+        //Configure textField to enter URL
+        [alertURL addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.placeholder = @"URL";
+            textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+            textField.borderStyle = UITextBorderStyleNone;
+            textField.returnKeyType = UIReturnKeyGo;
+            textField.delegate = self;
+        }];
+        
+        [alertURL addAction:actionAttach];
+        [alertURL addAction:actionWebView];
+        [alertURL addAction:actionCancel];
+        
+        [self presentViewController:alertURL animated:YES completion:nil];
+    }];
+    
+    //Alert action to cancel
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    
+    [actionSheet addAction:actionAttachLibrary];
+    [actionSheet addAction:actionAttachURL];
+    [actionSheet addAction:actionCancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
-//Get picked image from the photo gallery
+- (void)attachImageFromURLAction:(NSString *)stringURL {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    if (![self attachImageFromURL:stringURL]) {
+        //Invalid URL alert
+        UIAlertController *alertInvalidURL = [UIAlertController alertControllerWithTitle:@"Invalid URL" message:@"Please enter valid URL." preferredStyle:UIAlertControllerStyleAlert];
+        //Alert action OK
+        UIAlertAction *actionOK = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+        
+        //Add action and present action controller
+        [alertInvalidURL addAction:actionOK];
+        [self presentViewController:alertInvalidURL animated:YES completion:nil];
+    }
+}
+
+//Get image from URL
+- (bool)attachImageFromURL:(NSString *)stringURL {
+    NSURL *URL = [NSURL URLWithString:stringURL];
+    NSData *data = [NSData dataWithContentsOfURL:URL];
+    UIImage *image = [UIImage imageWithData:data];
+
+    if (image == nil) {
+        return NO;
+    }
+
+    [self addImage:image];
+
+    return YES;
+}
+
+//Get image picked from the photo gallery
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     id image = info[UIImagePickerControllerOriginalImage]; //Get image
-    if ([image isKindOfClass:[UIImage class]]) { //Verify that it is an image
-        selectedImage = (UIImage *)image;
-        self.imageView.image = selectedImage;
-    }
+    //Add image
+    [self addImage:image];
     
     //Dismiss controller
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+//Add image to image gallery
+- (void)addImage:(UIImage *)image {
+    [imageArray addObject:(UIImage *)image];
+    [self.imageGallery addImage:image];
+}
+
+//Get URL string from webViewController
+- (BOOL)getStringURL:(NSString *)stringURL {
+    NSLog(@"%@", stringURL);
+    return [self attachImageFromURL:stringURL];
 }
 
 @end

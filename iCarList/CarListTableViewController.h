@@ -13,8 +13,11 @@
     UIView *overlay;
     NSUserDefaults *userDefaults;
     NSSortDescriptor *sort;
+    bool overlayIsShown;
 }
 
 @property (strong, nonatomic) NSMutableArray *carArray;
+
+- (IBAction)searchSort:(id)sender;
 
 @end

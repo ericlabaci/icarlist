@@ -8,17 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "CarInfo.h"
+#import "PhotoScroller.h"
+#import "WebViewController.h"
 
+//Declare delegate and methods
 @protocol AddCarViewControllerDelegate <NSObject>
 
 - (bool)saveCar:(CarInfo *)carInfo;
 
 @end
 
-@interface AddCarViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
-    UIImage *selectedImage;
+
+@interface AddCarViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, WebViewControllerDelegate> {
+    NSMutableArray *imageArray;
 }
 
+//Delegate
 @property (weak, nonatomic) id <AddCarViewControllerDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *barButtonClearAll;
@@ -29,7 +34,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldMake;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldYear;
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet PhotoScroller *imageGallery;
 
 - (IBAction)clearAll:(id)sender;
 - (IBAction)addCar:(id)sender;

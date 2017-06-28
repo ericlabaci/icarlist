@@ -31,7 +31,7 @@
     [aCoder encodeObject:self.make forKey:KEY_MAKE];
     [aCoder encodeObject:self.model forKey:KEY_MODEL];
     [aCoder encodeObject:self.year forKey:KEY_YEAR];
-    [aCoder encodeObject:self.image forKey:KEY_IMAGE];
+    [aCoder encodeObject:self.imageArray forKey:KEY_IMAGE];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -40,7 +40,7 @@
     self.make = [aDecoder decodeObjectForKey:KEY_MAKE];
     self.model = [aDecoder decodeObjectForKey:KEY_MODEL];
     self.year = [aDecoder decodeObjectForKey:KEY_YEAR];
-    self.image = [aDecoder decodeObjectForKey:KEY_IMAGE];
+    self.imageArray = [aDecoder decodeObjectForKey:KEY_IMAGE];
     
     return self;
 }
