@@ -6,6 +6,7 @@
 # --User can add images from the device PhotoLibrary, copying an URL or saving from the Web directly from the app
 # -Data is saved to UserDefaults (Done)
 # --Key is generated with MD5 hash of "CarMake"+"CarModel"+"CarYear"
-# -View car info (Done, need to implement Edits)
+# -View car info (Done)
+# -Edit car info (Done)
 # -Sort and filter cars by parameters
-# -Improve interface design
+# -Improve interface design (WIP)

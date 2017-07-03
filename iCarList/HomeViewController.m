@@ -22,7 +22,7 @@
         button.layer.backgroundColor = DEFAULT_BUTTON_BACKGROUND_COLOR;
         [button setTitleColor:DEFAULT_BUTTON_TEXT_COLOR forState:UIControlStateNormal];
         button.layer.masksToBounds = YES;
-        button.layer.cornerRadius = 5.0f;
+        button.layer.cornerRadius = DEFAULT_BUTTON_CORNER_RADIUS;
     }
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];

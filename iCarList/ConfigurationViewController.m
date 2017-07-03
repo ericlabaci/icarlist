@@ -7,6 +7,7 @@
 //
 
 #import "ConfigurationViewController.h"
+#import "Defines.h"
 
 @interface ConfigurationViewController ()
 
@@ -18,7 +19,7 @@
     [super viewDidLoad];
     
     self.buttonEraseData.layer.masksToBounds = YES;
-    self.buttonEraseData.layer.cornerRadius = 5.0f;
+    self.buttonEraseData.layer.cornerRadius = DEFAULT_BUTTON_CORNER_RADIUS;
 }
 
 - (void)didReceiveMemoryWarning {

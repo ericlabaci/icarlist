@@ -8,7 +8,6 @@
 
 #import "CarListTableViewController.h"
 #import "CarListTableViewCell.h"
-#import "CarInfoViewController.h"
 #import "CarInfo.h"
 #import "Defines.h"
 
@@ -34,57 +33,10 @@
     //Load User Default's reference
     userDefaults = [NSUserDefaults standardUserDefaults];
     
-    NSArray *keys = [[userDefaults dictionaryRepresentation] allKeys];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void) {
-        for (NSString *key in keys) {
-            NSRange range = KEY_RANGE;
-            if ([[key substringWithRange:range] isEqualToString:KEY_TYPE_CAR]) {
-                NSData *carData = [userDefaults objectForKey:key];
-                [self.carArray addObject:[NSKeyedUnarchiver unarchiveObjectWithData:carData]];
-            }
-        }
-        [self sortCarArray];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            [self.tableView reloadData];
-        });
-    });
-    
     //Enable paging in tableView
     self.tableView.pagingEnabled = YES;
     
-    overlayIsShown = NO;
-    
-    //Check if there are no cars added
-    if (self.carArray.count == 0) {
-        int overlayWidth;
-        int overlayHeight = 50;
-        
-        //Create label with text
-        UILabel *label = [UILabel new];
-        label.text = @"  No car found!  ";
-        label.textColor = [UIColor whiteColor];
-        
-        //Get text width in pixels
-        overlayWidth = label.attributedText.size.width;
-        
-        //Set label size to fit text
-        [label setFrame:CGRectMake(0, 0, overlayWidth, overlayHeight)];
-        
-        //Create overlay so that the text fits and configure it's appearance
-        overlay = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - overlayWidth / 2, 35, overlayWidth, overlayHeight)];
-        overlay.layer.masksToBounds = YES;
-        overlay.layer.cornerRadius = 5.0f;
-        overlay.backgroundColor = [UIColor blackColor];
-        overlay.alpha = 0.7;
-        
-        [overlay addSubview:label];
-        
-        [self.view addSubview:overlay];
-        
-        overlayIsShown = YES;
-        self.tableView.userInteractionEnabled = NO;
-    }
+    [self loadCarList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -128,6 +80,61 @@
     return cell;
 }
 
+- (void)loadCarList {
+    NSArray *keys = [[userDefaults dictionaryRepresentation] allKeys];
+    [self.carArray removeAllObjects];
+    
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void) {
+        for (NSString *key in keys) {
+            NSRange range = KEY_RANGE;
+            if ([[key substringWithRange:range] isEqualToString:KEY_TYPE_CAR]) {
+                NSData *carData = [userDefaults objectForKey:key];
+                [self.carArray addObject:[NSKeyedUnarchiver unarchiveObjectWithData:carData]];
+            }
+        }
+    });
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        [self sortCarArray];
+        [self.tableView reloadData];
+        [self refreshCarList];
+    });
+}
+
+- (void)refreshCarList {
+    overlayIsShown = NO;
+    //Check if there are no cars added
+    if (self.carArray.count == 0) {
+        int overlayWidth;
+        int overlayHeight = 50;
+        
+        //Create label with text
+        UILabel *label = [UILabel new];
+        label.text = @"  No car found!  ";
+        label.textColor = [UIColor whiteColor];
+        
+        //Get text width in pixels
+        overlayWidth = label.attributedText.size.width;
+        
+        //Set label size to fit text
+        [label setFrame:CGRectMake(0, 0, overlayWidth, overlayHeight)];
+        
+        //Create overlay so that the text fits and configure it's appearance
+        overlay = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2 - overlayWidth / 2, 35, overlayWidth, overlayHeight)];
+        overlay.layer.masksToBounds = YES;
+        overlay.layer.cornerRadius = 5.0f;
+        overlay.backgroundColor = [UIColor blackColor];
+        overlay.alpha = 0.7;
+        
+        [overlay addSubview:label];
+        
+        [self.view addSubview:overlay];
+        
+        overlayIsShown = YES;
+        self.tableView.userInteractionEnabled = NO;
+    }
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -167,22 +174,24 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     //Check if next screen is the Add Car Screen
-    if ([[segue identifier] isEqualToString:@"ShowAddCarViewController"]) {
-        AddCarViewController *addCarVC = [segue destinationViewController]; //Get view controller
-        addCarVC.delegate = self; //Set delegate
+    CarInfoViewController *vc = [segue destinationViewController];
+    vc.delegate = self; //Set delegate
+    if ([[segue identifier] isEqualToString:@"AddCarSegue"]) {
+        vc.mode = CarInfoViewControllerModeNew;
     } else {
-        CarInfoViewController *vc = [segue destinationViewController]; //Get view controller
         NSIndexPath *path = [self.tableView indexPathForCell:sender];  //Get cell path
         CarListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path]; //Get cell
         vc.carInfo = cell.carInfo;
+        vc.mode = CarInfoViewControllerModeView;
     }
 }
 
-- (bool)saveCar:(CarInfo *)carInfo {
+#pragma mark - CarInfoViewControllerDelegate methods
+//Save a car
+- (BOOL)saveNewCar:(CarInfo *)carInfo {
     NSString *key;
     [carInfo generateKey];
     key = [carInfo getKey];
-    NSLog(@"Saving car with key:%@", key);
     
     if ([userDefaults objectForKey:key] != nil) {
         NSLog(@"Car with key %@ already exists.", key);
@@ -200,10 +209,28 @@
         NSData *carData = [NSKeyedArchiver archivedDataWithRootObject:carInfo];
         
         [userDefaults setObject:carData forKey:[carInfo getKey]];
+        [userDefaults synchronize];
     });
     return YES;
 }
 
+//Remove car from user defaults and table view
+- (BOOL)deleteCar:(CarInfo *)carInfo withCarKey:(NSString *)key {
+    [userDefaults removeObjectForKey:key];
+    [userDefaults synchronize];
+    [self.carArray removeObject:carInfo];
+    //[self.tableView reloadData];
+    [self refreshCarList];
+    return YES;
+}
+
+//Edit a car
+- (BOOL)saveEditCar:(CarInfo *)carInfo withCarKey:(NSString *)key {
+    [self deleteCar:carInfo withCarKey:key];
+    return [self saveNewCar:carInfo];
+}
+
+#pragma mark - Sort and filter methods
 - (void)sortCarArray {
     [self.carArray sortUsingDescriptors:@[sort]];
 }

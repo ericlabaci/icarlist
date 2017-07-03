@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AddCarViewController.h"
+#import "CarInfoViewController.h"
 
-@interface CarListTableViewController : UITableViewController <AddCarViewControllerDelegate> {
+@interface CarListTableViewController : UITableViewController <CarInfoViewControllerDelegate> {
     UIView *overlay;
     NSUserDefaults *userDefaults;
     NSSortDescriptor *sort;

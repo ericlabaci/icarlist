@@ -36,6 +36,7 @@
     self.webView.delegate = self;
     
     self.modalPresentationCapturesStatusBarAppearance = YES;
+    self.barButtonGetURL.enabled = NO;
 }
 
 - (void)didReceiveMemoryWarning {

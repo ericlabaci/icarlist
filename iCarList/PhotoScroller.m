@@ -40,14 +40,29 @@
 }
 
 - (void)updateLayout {
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    //[self setNeedsLayout];
+    //[self layoutIfNeeded];
     
     width = self.bounds.size.width;
     height = self.bounds.size.height;
     
     //Create scrollView
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, width, height)];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, width, height)];
+    /*
+    scrollView = [UIScrollView new];
+    [self addSubview:scrollView];
+    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    [[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:0] setActive:YES];
+    //[[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0] setActive:YES];
+    [[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0] setActive:YES];
+    //[[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0] setActive:YES];
+    [[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0] setActive:YES];
+    [[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0] setActive:YES];
+    [scrollView setNeedsLayout];
+    [scrollView layoutIfNeeded];
+    NSLog(@"%f %f", self.frame.size.width, self.frame.size.height);
+    NSLog(@"%f %f", scrollView.frame.size.width, scrollView.frame.size.height);
+    */
     scrollView.backgroundColor = [UIColor clearColor];
     scrollView.pagingEnabled = YES;
     scrollView.showsHorizontalScrollIndicator = NO;
@@ -128,7 +143,7 @@
 
 //Get current page being displayed
 - (int)currentPage {
-    return (int) (scrollView.contentOffset.x / scrollView.bounds.size.width);
+    return (int) (scrollView.contentOffset.x / scrollView.frame.size.width);
 }
 
 //Update current page when the user ends dragging
@@ -143,7 +158,7 @@
 
 //Change image displayed when the user clicks on the page controller
 - (void)changePage:(UIPageControl *)sender {
-    [scrollView setContentOffset:CGPointMake(sender.currentPage * self.bounds.size.width, 0) animated:YES];
+    [scrollView setContentOffset:CGPointMake(sender.currentPage * self.frame.size.width, 0) animated:YES];
 }
 
 @end
