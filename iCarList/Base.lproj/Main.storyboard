@@ -345,12 +345,13 @@
                                                 </connections>
                                             </textField>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96d-IM-VqZ">
-                                                <rect key="frame" x="8" y="8" width="40" height="30"/>
+                                                <rect key="frame" x="8" y="8" width="40" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="0.84864619006849318" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="dAC-kV-Ebn"/>
-                                                    <constraint firstAttribute="height" constant="30" id="pZ7-1D-p67"/>
+                                                    <constraint firstAttribute="height" constant="40" id="pZ7-1D-p67"/>
                                                 </constraints>
-                                                <state key="normal" image="CameraIcon"/>
+                                                <state key="normal" image="InsertPhoto"/>
                                                 <connections>
                                                     <action selector="attachImage:" destination="QqR-g4-qAh" eventType="touchUpInside" id="8D1-tc-Hbj"/>
                                                 </connections>
@@ -441,8 +442,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CameraIcon" width="110" height="82"/>
         <image name="HomeScreenBackground" width="960" height="640"/>
+        <image name="InsertPhoto" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="xpn-om-K1A"/>

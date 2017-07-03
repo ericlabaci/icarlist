@@ -56,7 +56,8 @@
         textField.layer.borderWidth = BORDER_WIDTH;
     }
     
-    self.textFieldMake.layer.cornerRadius = CORNER_RADIUS;
+    self.buttonAddImage.layer.masksToBounds = YES;
+    self.buttonAddImage.layer.cornerRadius = CORNER_RADIUS;
     
     [self reload];
 }
@@ -396,6 +397,34 @@
 - (BOOL)getStringURL:(NSString *)stringURL {
     NSLog(@"%@", stringURL);
     return [self attachImageFromURL:stringURL];
+}
+
+#pragma mark - Check if image is dark
+- (BOOL) isDarkImage:(UIImage *)image {
+    CFDataRef imageData = CGDataProviderCopyData(CGImageGetDataProvider(image.CGImage));
+    const UInt8 *pixels = CFDataGetBytePtr(imageData);
+    BOOL isDark = FALSE;
+    
+    int darkPixels = 0;
+    
+    long length = CFDataGetLength(imageData);
+    int const darkPixelThreshold = (image.size.width * image.size.height) * 0.45;
+    
+    for(int i = 0; i < length; i += 4) {
+        int r = pixels[i];
+        int g = pixels[i+1];
+        int b = pixels[i+2];
+        float luminance = (0.299 * r + 0.587 * g + 0.114 * b);
+        if (luminance < 150)
+            darkPixels++;
+    }
+    
+    if (darkPixels >= darkPixelThreshold)
+        isDark = YES;
+    
+    CFRelease(imageData);
+    
+    return isDark;
 }
 
 @end

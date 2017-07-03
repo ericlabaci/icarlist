@@ -159,13 +159,13 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		F44C8BDE1F014910003E58CB /* WebViewController */ = {
+		F44C8BDE1F014910003E58CB /* Web View */ = {
 			isa = PBXGroup;
 			children = (
 				F44C8BDF1F014927003E58CB /* WebViewController.h */,
 				F44C8BE01F014927003E58CB /* WebViewController.m */,
 			);
-			name = WebViewController;
+			name = "Web View";
 			sourceTree = "<group>";
 		};
 		F458072A1EFD946900FD19D4 /* MD5 */ = {
@@ -177,17 +177,17 @@
 			name = MD5;
 			sourceTree = "<group>";
 		};
-		F466949C1EFBF4F800748DAA /* View Controllers */ = {
+		F466949C1EFBF4F800748DAA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				F404CB1A1EFDBEDB00506D92 /* About */,
 				F4B9A6491EF1CBBF001E099C /* Car List Table */,
 				F41AE6E91EFC5C51001A4184 /* Configuration */,
-				F4B9A64F1EF1D357001E099C /* Detailed Car Info */,
+				F4B9A64F1EF1D357001E099C /* Car Info */,
 				F419B9541EFB15AF003131AB /* Home */,
-				F44C8BDE1F014910003E58CB /* WebViewController */,
+				F44C8BDE1F014910003E58CB /* Web View */,
 			);
-			name = "View Controllers";
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		F466949D1EFBFFA800748DAA /* Next Text Field */ = {
@@ -240,12 +240,12 @@
 				F4B9A6201EF1CA74001E099C /* LaunchScreen.storyboard */,
 				F40FB3281F0301B500A126DF /* WebViewController.xib */,
 				F4175B4E1EF85C15005278D9 /* Car Info */,
+				F466949C1EFBF4F800748DAA /* Controllers */,
 				F458072A1EFD946900FD19D4 /* MD5 */,
 				F466949D1EFBFFA800748DAA /* Next Text Field */,
 				F477E16A1EF814BD00A524F2 /* PhotoScroller */,
 				F4B9A6121EF1CA74001E099C /* Supporting Files */,
 				F41B13B21F059F0D00ED54E6 /* Utils */,
-				F466949C1EFBF4F800748DAA /* View Controllers */,
 			);
 			path = iCarList;
 			sourceTree = "<group>";
@@ -303,13 +303,13 @@
 			name = TableViewCell;
 			sourceTree = "<group>";
 		};
-		F4B9A64F1EF1D357001E099C /* Detailed Car Info */ = {
+		F4B9A64F1EF1D357001E099C /* Car Info */ = {
 			isa = PBXGroup;
 			children = (
 				F4B9A6501EF1D36F001E099C /* CarInfoViewController.h */,
 				F4B9A6511EF1D36F001E099C /* CarInfoViewController.m */,
 			);
-			name = "Detailed Car Info";
+			name = "Car Info";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
