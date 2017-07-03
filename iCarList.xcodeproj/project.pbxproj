@@ -11,8 +11,8 @@
 		F40FB3291F0301B500A126DF /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F40FB3281F0301B500A126DF /* WebViewController.xib */; };
 		F4175B521EF85C4A005278D9 /* CarInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F4175B511EF85C4A005278D9 /* CarInfo.m */; };
 		F419B9571EFB15BF003131AB /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F419B9561EFB15BF003131AB /* HomeViewController.m */; };
-		F419B95B1EFB1D8B003131AB /* AddCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F419B95A1EFB1D8B003131AB /* AddCarViewController.m */; };
 		F41AE6EC1EFC5C65001A4184 /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F41AE6EB1EFC5C65001A4184 /* ConfigurationViewController.m */; };
+		F41B13B51F059F1D00ED54E6 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B13B41F059F1D00ED54E6 /* Utils.m */; };
 		F44C8BE11F014927003E58CB /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F44C8BE01F014927003E58CB /* WebViewController.m */; };
 		F45807291EFD946000FD19D4 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = F45807281EFD946000FD19D4 /* NSString+MD5.m */; };
 		F46694A01EFBFFC600748DAA /* NextTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F466949F1EFBFFC600748DAA /* NextTextField.m */; };
@@ -55,10 +55,10 @@
 		F419B9531EFB1503003131AB /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		F419B9551EFB15BF003131AB /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		F419B9561EFB15BF003131AB /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		F419B9591EFB1D8B003131AB /* AddCarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCarViewController.h; sourceTree = "<group>"; };
-		F419B95A1EFB1D8B003131AB /* AddCarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCarViewController.m; sourceTree = "<group>"; };
 		F41AE6EA1EFC5C65001A4184 /* ConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationViewController.h; sourceTree = "<group>"; };
 		F41AE6EB1EFC5C65001A4184 /* ConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationViewController.m; sourceTree = "<group>"; };
+		F41B13B31F059F1D00ED54E6 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		F41B13B41F059F1D00ED54E6 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		F44C8BDF1F014927003E58CB /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		F44C8BE01F014927003E58CB /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		F45807271EFD946000FD19D4 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
@@ -141,15 +141,6 @@
 			name = Home;
 			sourceTree = "<group>";
 		};
-		F419B9581EFB1D73003131AB /* Add Car */ = {
-			isa = PBXGroup;
-			children = (
-				F419B9591EFB1D8B003131AB /* AddCarViewController.h */,
-				F419B95A1EFB1D8B003131AB /* AddCarViewController.m */,
-			);
-			name = "Add Car";
-			sourceTree = "<group>";
-		};
 		F41AE6E91EFC5C51001A4184 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +148,15 @@
 				F41AE6EB1EFC5C65001A4184 /* ConfigurationViewController.m */,
 			);
 			name = Configuration;
+			sourceTree = "<group>";
+		};
+		F41B13B21F059F0D00ED54E6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F41B13B31F059F1D00ED54E6 /* Utils.h */,
+				F41B13B41F059F1D00ED54E6 /* Utils.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		F44C8BDE1F014910003E58CB /* WebViewController */ = {
@@ -180,13 +180,12 @@
 		F466949C1EFBF4F800748DAA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F44C8BDE1F014910003E58CB /* WebViewController */,
 				F404CB1A1EFDBEDB00506D92 /* About */,
-				F419B9581EFB1D73003131AB /* Add Car */,
 				F4B9A6491EF1CBBF001E099C /* Car List Table */,
 				F41AE6E91EFC5C51001A4184 /* Configuration */,
 				F4B9A64F1EF1D357001E099C /* Detailed Car Info */,
 				F419B9541EFB15AF003131AB /* Home */,
+				F44C8BDE1F014910003E58CB /* WebViewController */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -245,6 +244,7 @@
 				F466949D1EFBFFA800748DAA /* Next Text Field */,
 				F477E16A1EF814BD00A524F2 /* PhotoScroller */,
 				F4B9A6121EF1CA74001E099C /* Supporting Files */,
+				F41B13B21F059F0D00ED54E6 /* Utils */,
 				F466949C1EFBF4F800748DAA /* View Controllers */,
 			);
 			path = iCarList;
@@ -279,8 +279,8 @@
 		F4B9A6491EF1CBBF001E099C /* Car List Table */ = {
 			isa = PBXGroup;
 			children = (
-				F4B9A64A1EF1CBE1001E099C /* TableViewController */,
 				F4B9A64E1EF1CBFC001E099C /* TableViewCell */,
+				F4B9A64A1EF1CBE1001E099C /* TableViewController */,
 			);
 			name = "Car List Table";
 			sourceTree = "<group>";
@@ -450,8 +450,8 @@
 				F477E16D1EF814CC00A524F2 /* PhotoScroller.m in Sources */,
 				F44C8BE11F014927003E58CB /* WebViewController.m in Sources */,
 				F4B9A6171EF1CA74001E099C /* AppDelegate.m in Sources */,
+				F41B13B51F059F1D00ED54E6 /* Utils.m in Sources */,
 				F41AE6EC1EFC5C65001A4184 /* ConfigurationViewController.m in Sources */,
-				F419B95B1EFB1D8B003131AB /* AddCarViewController.m in Sources */,
 				F4B9A6521EF1D36F001E099C /* CarInfoViewController.m in Sources */,
 				F46694A01EFBFFC600748DAA /* NextTextField.m in Sources */,
 				F45807291EFD946000FD19D4 /* NSString+MD5.m in Sources */,
