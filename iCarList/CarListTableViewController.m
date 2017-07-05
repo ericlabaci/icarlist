@@ -28,7 +28,6 @@
     
     //Create data array
     self.carArray = [NSMutableArray new];
-    sort = [[NSSortDescriptor alloc] initWithKey:@"make" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     
     //Load User Default's reference
     userDefaults = [NSUserDefaults standardUserDefaults];
@@ -232,7 +231,10 @@
 
 #pragma mark - Sort and filter methods
 - (void)sortCarArray {
-    [self.carArray sortUsingDescriptors:@[sort]];
+    NSSortDescriptor *sortMake = [[NSSortDescriptor alloc] initWithKey:@"make" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+    NSSortDescriptor *sortModel = [[NSSortDescriptor alloc] initWithKey:@"model" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+    NSSortDescriptor *sortYear = [[NSSortDescriptor alloc] initWithKey:@"year" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+    [self.carArray sortUsingDescriptors:@[sortMake, sortModel, sortYear]];
 }
 
 - (IBAction)searchSort:(id)sender {

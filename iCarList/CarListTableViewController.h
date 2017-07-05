@@ -12,7 +12,6 @@
 @interface CarListTableViewController : UITableViewController <CarInfoViewControllerDelegate> {
     UIView *overlay;
     NSUserDefaults *userDefaults;
-    NSSortDescriptor *sort;
     bool overlayIsShown;
 }
 

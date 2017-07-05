@@ -182,8 +182,8 @@
 			children = (
 				F404CB1A1EFDBEDB00506D92 /* About */,
 				F4B9A6491EF1CBBF001E099C /* Car List Table */,
-				F41AE6E91EFC5C51001A4184 /* Configuration */,
 				F4B9A64F1EF1D357001E099C /* Car Info */,
+				F41AE6E91EFC5C51001A4184 /* Configuration */,
 				F419B9541EFB15AF003131AB /* Home */,
 				F44C8BDE1F014910003E58CB /* Web View */,
 			);
