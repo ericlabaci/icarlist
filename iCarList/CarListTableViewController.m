@@ -132,6 +132,7 @@
         overlayIsShown = YES;
         self.tableView.userInteractionEnabled = NO;
     }
+    [self.tableView reloadData];
 }
 
 /*
