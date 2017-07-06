@@ -14,6 +14,14 @@
 #define KEY_MODEL @"model"
 #define KEY_YEAR @"year"
 #define KEY_IMAGE @"image"
+#define KEY_PRICE @"price"
+#define KEY_CONFIGURATION @"configuration"
+#define KEY_DOORS @"doors"
+#define KEY_HORSEPOWER @"horsepower"
+#define KEY_TORQUE @"torque"
+
+#define NUMBER_INTEGER(x) [NSNumber numberWithInteger:x]
+#define INTEGER_NUMBER(x) [x integerValue]
 
 @implementation CarInfo
 
@@ -32,6 +40,11 @@
     [aCoder encodeObject:self.model forKey:KEY_MODEL];
     [aCoder encodeObject:self.year forKey:KEY_YEAR];
     [aCoder encodeObject:self.imageArray forKey:KEY_IMAGE];
+    [aCoder encodeObject:NUMBER_INTEGER(self.price) forKey:KEY_PRICE];
+    [aCoder encodeObject:self.configuration forKey:KEY_CONFIGURATION];
+    [aCoder encodeObject:NUMBER_INTEGER(self.numberOfDoors) forKey:KEY_DOORS];
+    [aCoder encodeObject:NUMBER_INTEGER(self.horsepower) forKey:KEY_HORSEPOWER];
+    [aCoder encodeObject:NUMBER_INTEGER(self.torque) forKey:KEY_TORQUE];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -41,6 +54,11 @@
     self.model = [aDecoder decodeObjectForKey:KEY_MODEL];
     self.year = [aDecoder decodeObjectForKey:KEY_YEAR];
     self.imageArray = [aDecoder decodeObjectForKey:KEY_IMAGE];
+    self.price = INTEGER_NUMBER([aDecoder decodeObjectForKey:KEY_PRICE]);
+    self.configuration = [aDecoder decodeObjectForKey:KEY_CONFIGURATION];
+    self.numberOfDoors = INTEGER_NUMBER([aDecoder decodeObjectForKey:KEY_DOORS]);
+    self.horsepower = INTEGER_NUMBER([aDecoder decodeObjectForKey:KEY_HORSEPOWER]);
+    self.torque = INTEGER_NUMBER([aDecoder decodeObjectForKey:KEY_TORQUE]);
     
     return self;
 }

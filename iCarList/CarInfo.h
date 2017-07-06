@@ -17,6 +17,12 @@
 @property (strong, nonatomic) NSString *make;
 @property (strong, nonatomic) NSString *year;
 @property (strong, nonatomic) NSMutableArray *imageArray;
+@property (nonatomic) NSInteger price;
+@property (strong, nonatomic) NSString *configuration;
+@property (nonatomic) NSInteger numberOfDoors;
+@property (nonatomic) NSInteger horsepower;
+@property (nonatomic) NSInteger torque;
+
 
 - (void)generateKey;
 - (NSString *)getKey;

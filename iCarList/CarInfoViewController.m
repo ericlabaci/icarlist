@@ -19,6 +19,9 @@
 #define EMPTY_FIELD_COLOR [[UIColor colorWithRed:255 / 255.0f green:0.0f blue:0.0f alpha:0.75f]CGColor]
 #define FIELD_DEFAULT_COLOR [[UIColor clearColor]CGColor]
 
+#define PRICE_FROM_STRING(s) ([s isKindOfClass:[NSString class]] ? ((s.length > 0) ? s : @"0") : @"0")
+#define SAFE_STRING(s) ([s isKindOfClass:[NSString class]] ? s : @"")
+
 @interface CarInfoViewController ()
 
 @end
@@ -36,6 +39,10 @@
     
     //Create image array for photo scroller
     imageArray = [NSMutableArray new];
+    
+    for (NextTextField *textField in self.textFieldCollection) {
+        textField.hidden = YES;
+    }
     
     //Switch to selected model
     [self switchModeTo:self.mode];
@@ -107,7 +114,9 @@
 #pragma mark - Reload
 - (void)reload {
     self.labelTitle.text = [NSString stringWithFormat:@"%@ %@ %@", self.carInfo.make, self.carInfo.model, self.carInfo.year];
-}
+    self.labelPrice.text = [NSString stringWithFormat:@"%@", (self.carInfo.price > 0) ? [NSString stringWithFormat:@"R$ %ld", self.carInfo.price] : @"N/A"];
+    self.labelConfiguration.text = [NSString stringWithFormat:@"%@", (self.carInfo.configuration != nil) ? ((self.carInfo.configuration.length > 0) ? self.carInfo.configuration : @"N/A") : @"N/A"];
+    self.labelNumberDoors.text = [NSString stringWithFormat:@"%@", (self.carInfo.numberOfDoors > 0) ? [NSString stringWithFormat:@"R$ %ld", self.carInfo.numberOfDoors] : @"N/A"];}
 
 #pragma mark - UIBarButtonItem actions
 //Switch to editing mode
@@ -122,7 +131,8 @@
     BOOL canSave = YES;
     [self dismissKeyboard];
     
-    for (NextTextField *textField in self.textFieldCollection) {
+    for (int i = 0; i < 3; i++) {
+        NextTextField *textField = [self.textFieldCollection objectAtIndex:i];
         if (textField.text.length == 0) {
             textField.layer.borderColor = EMPTY_FIELD_COLOR;
             canSave = NO;
@@ -130,6 +140,9 @@
     }
     
     if (canSave) {
+        NSNumberFormatter *formater = [NSNumberFormatter new];
+        formater.numberStyle = NSNumberFormatterDecimalStyle;
+        
         if (self.mode == CarInfoViewControllerModeNew) {
             self.carInfo = [CarInfo new];
         }
@@ -138,6 +151,9 @@
         self.carInfo.model = self.textFieldModel.text;
         self.carInfo.year = self.textFieldYear.text;
         self.carInfo.imageArray = imageArray;
+        self.carInfo.price = [[formater numberFromString:PRICE_FROM_STRING(self.textFieldPrice.text)] integerValue];
+        self.carInfo.configuration = SAFE_STRING(self.textFieldConfiguration.text);
+        self.carInfo.numberOfDoors = [[formater numberFromString:PRICE_FROM_STRING(self.textFieldNumberDoors.text)] integerValue];
         if (self.mode == CarInfoViewControllerModeNew) {
             [self.delegate saveNewCar:self.carInfo];
         } else if (self.mode == CarInfoViewControllerModeEditing) {
@@ -239,10 +255,13 @@
         self.textFieldMake.text = self.carInfo.make;
         self.textFieldModel.text = self.carInfo.model;
         self.textFieldYear.text = self.carInfo.year;
+        self.textFieldPrice.text = [NSString stringWithFormat:@"%ld", self.carInfo.price];
     }
     
     //Not hidden in view mode
-    [self animateViewFade:self.labelTitle withFadeType:viewFade withTimeInterval:interval];
+    for (UILabel *label in self.labelCollection) {
+        [self animateViewFade:label withFadeType:viewFade withTimeInterval:interval];
+    }
     
     //Not hidden in edit/new mode
     [self animateViewFade:self.buttonAddImage withFadeType:editFade withTimeInterval:interval];

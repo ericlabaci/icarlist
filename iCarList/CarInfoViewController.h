@@ -43,17 +43,28 @@ typedef NS_ENUM(char, CarInfoViewControllerModes) {
 
 @property (strong, nonatomic) CarInfo *carInfo;
 
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+
 //Both modes
 @property (weak, nonatomic) IBOutlet PhotoScroller *photoScroller;
 
 //Viewing mode
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
+@property (weak, nonatomic) IBOutlet UILabel *labelPrice;
+@property (weak, nonatomic) IBOutlet UILabel *labelConfiguration;
+@property (weak, nonatomic) IBOutlet UILabel *labelNumberDoors;
 
 //Editing mode
 @property (weak, nonatomic) IBOutlet UIButton *buttonAddImage;
 @property (weak, nonatomic) IBOutlet NextTextField *textFieldMake;
 @property (weak, nonatomic) IBOutlet NextTextField *textFieldModel;
 @property (weak, nonatomic) IBOutlet NextTextField *textFieldYear;
+@property (weak, nonatomic) IBOutlet NextTextField *textFieldPrice;
+@property (weak, nonatomic) IBOutlet NextTextField *textFieldConfiguration;
+@property (weak, nonatomic) IBOutlet NextTextField *textFieldNumberDoors;
+
+//Labels
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;
 
 //Text fields
 @property (strong, nonatomic) IBOutletCollection(NextTextField) NSArray *textFieldCollection;
