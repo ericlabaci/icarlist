@@ -14,7 +14,9 @@
 
 @end
 
-@interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    NSMutableArray *filterArrayCopy;
+}
 
 @property (strong, nonatomic) id <SearchViewControllerDelegate> delegate;
 

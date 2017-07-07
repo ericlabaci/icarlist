@@ -23,13 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    //Create data array
+    //Create car data array
     self.carArray = [NSMutableArray new];
     
     //Load User Default's reference
@@ -37,17 +31,7 @@
     
     //Enable paging in tableView
     self.tableView.pagingEnabled = YES;
-    
-//    self.filterArray = [NSMutableArray new];
-//    NSArray *filterNames = @[@"Make", @"Model", @"Year", @"Price", @"Configuration"];
-//    NSArray *propertyNames = @[@"make", @"model", @"year", @"price", @"configuration"];
-//    for (int i = 0; i < filterNames.count; i++) {
-//        Filter *filter = [Filter new];
-//        filter.name = [filterNames objectAtIndex:i];
-//        filter.propertyName = [propertyNames objectAtIndex:i];
-//        filter.state = FilterStateDisabled;
-//        [self.filterArray addObject:filter];
-//    }
+
     [self loadFilterConfiguration];
     [self loadCarList];
 }
@@ -280,9 +264,7 @@
         [sortDescriptorArray addObject:sortDescriptor];
     }
     
-//    for (Filter *filter in self.filterArray) {
-    for (int i = 0; i < self.filterArray.count; i++) {
-        Filter *filter = [self.filterArray objectAtIndex:i];
+    for (Filter *filter in self.filterArray) {
         NSString *key = [NSString stringWithFormat:@"%@%@", KEY_TYPE_FILTER_CONFIG, filter.propertyName];
         
         if ([userDefaults objectForKey:key] != nil) {
@@ -310,15 +292,17 @@
         [self.filterArray addObject:filter];
     }
     
+    for (int i = 0; i < 3; i++) {
+        ((Filter *)self.filterArray[i]).state = FilterStateAscending;
+    }
+    
     for (NSString *key in keys) {
         if ([[key substringWithRange:range] isEqualToString:KEY_TYPE_FILTER_CONFIG]) {
             NSData *filterData = [userDefaults objectForKey:key];
             Filter *filter = [NSKeyedUnarchiver unarchiveObjectWithData:filterData];
-            for (int i = 0; i < self.filterArray.count; i++) {
-                Filter *filter2 = [self.filterArray objectAtIndex:i];
-                if ([filter.propertyName isEqualToString:filter2.propertyName]) {
-                    filter2.state = filter.state;
-                    self.filterArray[i] = filter2;
+            for (Filter *filterAux in self.filterArray) {
+                if ([filter.propertyName isEqualToString:filterAux.propertyName]) {
+                    filterAux.state = filter.state;
                     break;
                 }
             }

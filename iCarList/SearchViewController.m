@@ -21,6 +21,9 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+//    filterArrayCopy = [self.filterArray mutableCopy];
+    filterArrayCopy = [[NSMutableArray alloc] initWithArray:self.filterArray copyItems:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,13 +46,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.filterArray.count;
+    return filterArrayCopy.count;
 }
 
 - (FilterTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FilterTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"FilterCell"];
     NSInteger row = indexPath.row;
-    Filter *filter = [self.filterArray objectAtIndex:row];
+    Filter *filter = [filterArrayCopy objectAtIndex:row];
     
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
     [cell.labelFilterName setText:filter.name];
@@ -61,9 +64,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row;
-    Filter *filter = [self.filterArray objectAtIndex:row];
+    Filter *filter = [filterArrayCopy objectAtIndex:row];
     filter.state = [self nextFilterStateFrom:filter.state];
-    [self.filterArray setObject:filter atIndexedSubscript:row];
+    [filterArrayCopy setObject:filter atIndexedSubscript:row];
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -123,8 +126,29 @@
 }
 
 - (IBAction)applyFilters:(id)sender {
-    [self.delegate didApplyOrdering];
-    [self.navigationController popViewControllerAnimated:YES];
+    BOOL enabled = NO;
+    
+    for (Filter *filter in filterArrayCopy) {
+        if (filter.state != FilterStateDisabled) {
+            enabled = YES;
+            break;
+        }
+    }
+    
+    if (enabled) {
+        for (int i = 0; i < filterArrayCopy.count; i++) {
+            ((Filter *)self.filterArray[i]).state = ((Filter *)filterArrayCopy[i]).state;
+        }
+        [self.delegate didApplyOrdering];
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No filter enabled" message:@"Please enable at least one filter." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionOK = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+        
+        [alert addAction:actionOK];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 @end

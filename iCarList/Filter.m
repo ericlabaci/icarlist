@@ -33,4 +33,14 @@
     [aCoder encodeObject:NUMBER_TO_CHAR(self.state) forKey:KEY_STATE];
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    Filter *filter = [Filter new];
+    
+    filter.name = self.name;
+    filter.propertyName = self.propertyName;
+    filter.state = self.state;
+    
+    return filter;
+}
+
 @end

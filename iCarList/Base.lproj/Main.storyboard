@@ -471,9 +471,9 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncL-6G-DEy" userLabel="Label Price Value">
-                                                <rect key="frame" x="62" y="253" width="110" height="22"/>
+                                                <rect key="frame" x="62" y="253" width="250" height="22"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="110" id="T4A-xH-lgK"/>
+                                                    <constraint firstAttribute="width" constant="250" id="T4A-xH-lgK"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                 <nil key="textColor"/>
@@ -511,9 +511,9 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configuration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IU-P0-oEJ" userLabel="Label Configuration Text">
-                                                <rect key="frame" x="135" y="287" width="135" height="22"/>
+                                                <rect key="frame" x="135" y="287" width="177" height="22"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="135" id="TkB-u2-k72"/>
+                                                    <constraint firstAttribute="width" constant="177" id="TkB-u2-k72"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                 <nil key="textColor"/>
@@ -532,9 +532,9 @@
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgF-Ij-n2u" userLabel="Label Number Doors Text">
-                                                <rect key="frame" x="69" y="321" width="62" height="21"/>
+                                                <rect key="frame" x="69" y="321" width="243" height="21"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="62" id="tQc-r0-IZE"/>
+                                                    <constraint firstAttribute="width" constant="243" id="tQc-r0-IZE"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                 <nil key="textColor"/>
@@ -636,7 +636,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lsb-kF-PFO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2091" y="944"/>
+            <point key="canvasLocation" x="2090.625" y="943.30985915492954"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fr3-NM-pYj">

@@ -14,7 +14,7 @@ typedef NS_ENUM(char, FilterState) {
     FilterStateDescending
 };
 
-@interface Filter : NSObject <NSCoding>
+@interface Filter : NSObject <NSCoding, NSCopying>
 
 @property (strong, nonatomic, nonnull) NSString *name;
 @property (strong, nonatomic, nonnull) NSString *propertyName;

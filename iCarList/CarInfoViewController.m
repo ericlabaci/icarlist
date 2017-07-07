@@ -113,8 +113,15 @@
 
 #pragma mark - Reload
 - (void)reload {
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    [formatter setGroupingSeparator:@"."];
+    [formatter setGroupingSize:3];
+    [formatter setUsesGroupingSeparator:YES];
+    
+    NSString *priceString = [formatter stringFromNumber:[NSNumber numberWithInteger:self.carInfo.price]];
+    
     self.labelTitle.text = [NSString stringWithFormat:@"%@ %@ %@", self.carInfo.make, self.carInfo.model, self.carInfo.year];
-    self.labelPrice.text = [NSString stringWithFormat:@"%@", (self.carInfo.price > 0) ? [NSString stringWithFormat:@"R$ %ld", self.carInfo.price] : @"N/A"];
+    self.labelPrice.text = [NSString stringWithFormat:@"%@", (self.carInfo.price > 0) ? [NSString stringWithFormat:@"R$ %@,00", priceString] : @"N/A"];
     self.labelConfiguration.text = [NSString stringWithFormat:@"%@", (self.carInfo.configuration != nil) ? ((self.carInfo.configuration.length > 0) ? self.carInfo.configuration : @"N/A") : @"N/A"];
     self.labelNumberDoors.text = [NSString stringWithFormat:@"%@", (self.carInfo.numberOfDoors > 0) ? [NSString stringWithFormat:@"%ld", self.carInfo.numberOfDoors] : @"N/A"];
 }
