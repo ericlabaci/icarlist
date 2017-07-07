@@ -20,10 +20,38 @@
 #define KEY_HORSEPOWER @"horsepower"
 #define KEY_TORQUE @"torque"
 
-#define NUMBER_INTEGER(x) [NSNumber numberWithInteger:x]
-#define INTEGER_NUMBER(x) [x integerValue]
+#define NUMBER_TO_INTEGER(x) [NSNumber numberWithInteger:x]
+#define INTEGER_TO_NUMBER(x) [x integerValue]
 
 @implementation CarInfo
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    
+    self.make = [aDecoder decodeObjectForKey:KEY_MAKE];
+    self.model = [aDecoder decodeObjectForKey:KEY_MODEL];
+    self.year = [aDecoder decodeObjectForKey:KEY_YEAR];
+    self.imageArray = [aDecoder decodeObjectForKey:KEY_IMAGE];
+    self.price = INTEGER_TO_NUMBER([aDecoder decodeObjectForKey:KEY_PRICE]);
+    self.configuration = [aDecoder decodeObjectForKey:KEY_CONFIGURATION];
+    self.numberOfDoors = INTEGER_TO_NUMBER([aDecoder decodeObjectForKey:KEY_DOORS]);
+    self.horsepower = INTEGER_TO_NUMBER([aDecoder decodeObjectForKey:KEY_HORSEPOWER]);
+    self.torque = INTEGER_TO_NUMBER([aDecoder decodeObjectForKey:KEY_TORQUE]);
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.make forKey:KEY_MAKE];
+    [aCoder encodeObject:self.model forKey:KEY_MODEL];
+    [aCoder encodeObject:self.year forKey:KEY_YEAR];
+    [aCoder encodeObject:self.imageArray forKey:KEY_IMAGE];
+    [aCoder encodeObject:NUMBER_TO_INTEGER(self.price) forKey:KEY_PRICE];
+    [aCoder encodeObject:self.configuration forKey:KEY_CONFIGURATION];
+    [aCoder encodeObject:NUMBER_TO_INTEGER(self.numberOfDoors) forKey:KEY_DOORS];
+    [aCoder encodeObject:NUMBER_TO_INTEGER(self.horsepower) forKey:KEY_HORSEPOWER];
+    [aCoder encodeObject:NUMBER_TO_INTEGER(self.torque) forKey:KEY_TORQUE];
+}
 
 - (void)generateKey {
     key = [NSString stringWithFormat:@"%@%@%@", [self.make lowercaseString], [self.model lowercaseString], [self.year lowercaseString]];
@@ -33,34 +61,6 @@
 
 - (NSString *)getKey {
     return key;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:self.make forKey:KEY_MAKE];
-    [aCoder encodeObject:self.model forKey:KEY_MODEL];
-    [aCoder encodeObject:self.year forKey:KEY_YEAR];
-    [aCoder encodeObject:self.imageArray forKey:KEY_IMAGE];
-    [aCoder encodeObject:NUMBER_INTEGER(self.price) forKey:KEY_PRICE];
-    [aCoder encodeObject:self.configuration forKey:KEY_CONFIGURATION];
-    [aCoder encodeObject:NUMBER_INTEGER(self.numberOfDoors) forKey:KEY_DOORS];
-    [aCoder encodeObject:NUMBER_INTEGER(self.horsepower) forKey:KEY_HORSEPOWER];
-    [aCoder encodeObject:NUMBER_INTEGER(self.torque) forKey:KEY_TORQUE];
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super init];
-    
-    self.make = [aDecoder decodeObjectForKey:KEY_MAKE];
-    self.model = [aDecoder decodeObjectForKey:KEY_MODEL];
-    self.year = [aDecoder decodeObjectForKey:KEY_YEAR];
-    self.imageArray = [aDecoder decodeObjectForKey:KEY_IMAGE];
-    self.price = INTEGER_NUMBER([aDecoder decodeObjectForKey:KEY_PRICE]);
-    self.configuration = [aDecoder decodeObjectForKey:KEY_CONFIGURATION];
-    self.numberOfDoors = INTEGER_NUMBER([aDecoder decodeObjectForKey:KEY_DOORS]);
-    self.horsepower = INTEGER_NUMBER([aDecoder decodeObjectForKey:KEY_HORSEPOWER]);
-    self.torque = INTEGER_NUMBER([aDecoder decodeObjectForKey:KEY_TORQUE]);
-    
-    return self;
 }
 
 @end

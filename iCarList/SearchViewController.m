@@ -12,8 +12,6 @@
 
 @interface SearchViewController ()
 
-@property (strong, nonatomic) NSMutableArray *filterArray;
-
 @end
 
 @implementation SearchViewController
@@ -23,18 +21,6 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    self.filterArray = [NSMutableArray new];
-    
-    NSArray *filterNames = @[@"Make", @"Model", @"Year", @"Price", @"Configuration"];
-    NSArray *propertyNames = @[@"make", @"model", @"year", @"price", @"configuration"];
-    for (int i = 0; i < filterNames.count; i++) {
-        Filter *filter = [Filter new];
-        filter.name = [filterNames objectAtIndex:i];
-        filter.propertyName = [propertyNames objectAtIndex:i];
-        filter.state = FilterStateDisabled;
-        [self.filterArray addObject:filter];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -137,7 +123,7 @@
 }
 
 - (IBAction)applyFilters:(id)sender {
-    [self.delegate didApplyOrdering:self.filterArray];
+    [self.delegate didApplyOrdering];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

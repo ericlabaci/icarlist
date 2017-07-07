@@ -8,5 +8,5 @@
         * Key is generated with MD5 hash of "CarMake"+"CarModel"+"CarYear"
     * View car info (Done)
     * Edit car info (Done)
-    * Sort and filter cars by parameters
+    * Sort cars by parameters
     * Improve interface design (WIP)

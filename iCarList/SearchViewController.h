@@ -10,13 +10,15 @@
 
 @protocol SearchViewControllerDelegate <NSObject>
 
-- (void)didApplyOrdering:(NSArray *)filterArray;
+- (void)didApplyOrdering;
 
 @end
 
 @interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) id <SearchViewControllerDelegate> delegate;
+
+@property (weak, nonatomic) NSMutableArray *filterArray;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

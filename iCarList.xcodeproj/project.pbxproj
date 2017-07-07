@@ -143,6 +143,7 @@
 			children = (
 				F4175B501EF85C4A005278D9 /* CarInfo.h */,
 				F4175B511EF85C4A005278D9 /* CarInfo.m */,
+				F458072A1EFD946900FD19D4 /* MD5 */,
 			);
 			name = "Car Info";
 			sourceTree = "<group>";
@@ -268,7 +269,6 @@
 				F4B9A6201EF1CA74001E099C /* LaunchScreen.storyboard */,
 				F4175B4E1EF85C15005278D9 /* Car Info */,
 				F466949C1EFBF4F800748DAA /* Controllers */,
-				F458072A1EFD946900FD19D4 /* MD5 */,
 				F466949D1EFBFFA800748DAA /* Next Text Field */,
 				F477E16A1EF814BD00A524F2 /* PhotoScroller */,
 				F4B9A6121EF1CA74001E099C /* Supporting Files */,
