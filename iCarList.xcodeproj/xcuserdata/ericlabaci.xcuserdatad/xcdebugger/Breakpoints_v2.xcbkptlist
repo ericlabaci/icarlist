@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iCarList/CarListTableViewController.m"
-            timestampString = "520809680.942969"
+            timestampString = "521141797.015497"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283">
+            startingLineNumber = "305"
+            endingLineNumber = "305">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

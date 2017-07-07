@@ -116,7 +116,8 @@
     self.labelTitle.text = [NSString stringWithFormat:@"%@ %@ %@", self.carInfo.make, self.carInfo.model, self.carInfo.year];
     self.labelPrice.text = [NSString stringWithFormat:@"%@", (self.carInfo.price > 0) ? [NSString stringWithFormat:@"R$ %ld", self.carInfo.price] : @"N/A"];
     self.labelConfiguration.text = [NSString stringWithFormat:@"%@", (self.carInfo.configuration != nil) ? ((self.carInfo.configuration.length > 0) ? self.carInfo.configuration : @"N/A") : @"N/A"];
-    self.labelNumberDoors.text = [NSString stringWithFormat:@"%@", (self.carInfo.numberOfDoors > 0) ? [NSString stringWithFormat:@"R$ %ld", self.carInfo.numberOfDoors] : @"N/A"];}
+    self.labelNumberDoors.text = [NSString stringWithFormat:@"%@", (self.carInfo.numberOfDoors > 0) ? [NSString stringWithFormat:@"%ld", self.carInfo.numberOfDoors] : @"N/A"];
+}
 
 #pragma mark - UIBarButtonItem actions
 //Switch to editing mode
@@ -256,6 +257,8 @@
         self.textFieldModel.text = self.carInfo.model;
         self.textFieldYear.text = self.carInfo.year;
         self.textFieldPrice.text = [NSString stringWithFormat:@"%ld", self.carInfo.price];
+        self.textFieldConfiguration.text = self.carInfo.configuration;
+        self.textFieldNumberDoors.text = [NSString stringWithFormat:@"%ld", self.carInfo.numberOfDoors];
     }
     
     //Not hidden in view mode

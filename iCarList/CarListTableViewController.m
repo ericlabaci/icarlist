@@ -10,6 +10,7 @@
 #import "CarListTableViewCell.h"
 #import "CarInfo.h"
 #import "Defines.h"
+#import "Filter.h"
 
 @interface CarListTableViewController ()
 
@@ -174,15 +175,20 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     //Check if next screen is the Add Car Screen
-    CarInfoViewController *vc = [segue destinationViewController];
-    vc.delegate = self; //Set delegate
     if ([[segue identifier] isEqualToString:@"AddCarSegue"]) {
-        vc.mode = CarInfoViewControllerModeNew;
-    } else {
+        CarInfoViewController *carInfoVC = [segue destinationViewController];
+        carInfoVC.mode = CarInfoViewControllerModeNew;
+        carInfoVC.delegate = self; //Set delegate
+    } else if ([[segue identifier] isEqualToString:@"ViewCarSegue"]) {
+        CarInfoViewController *carInfoVC = [segue destinationViewController];
         NSIndexPath *path = [self.tableView indexPathForCell:sender];  //Get cell path
         CarListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:path]; //Get cell
-        vc.carInfo = cell.carInfo;
-        vc.mode = CarInfoViewControllerModeView;
+        carInfoVC.carInfo = cell.carInfo;
+        carInfoVC.mode = CarInfoViewControllerModeView;
+        carInfoVC.delegate = self; //Set delegate
+    } else if ([[segue identifier] isEqualToString:@"SearchCarSegue"]) {
+        SearchViewController *searchVC = [segue destinationViewController];
+        searchVC.delegate = self;
     }
 }
 
@@ -238,12 +244,36 @@
     [self.carArray sortUsingDescriptors:@[sortMake, sortModel, sortYear]];
 }
 
-- (IBAction)searchSort:(id)sender {
-    UIAlertController *notAvailableAlert = [UIAlertController alertControllerWithTitle:@"Ooops" message:@"Not available yet :(" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionOK = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
-    
-    [notAvailableAlert addAction:actionOK];
-    [self presentViewController:notAvailableAlert animated:YES completion:nil];
+- (void)didApplyOrdering:(NSArray *)filterArray {
+    NSMutableArray *sortDescriptorArray = [NSMutableArray new];
+    for (Filter *filter in filterArray) {
+        NSSortDescriptor *sortDescriptor;
+        BOOL ascending;
+        if (filter.state == FilterStateDisabled) {
+            continue;
+        } else if (filter.state == FilterStateAscending) {
+            ascending = YES;
+        } else if (filter.state == FilterStateDescending) {
+            ascending = NO;
+        } else {
+            ascending = NO;
+        }
+        if ([filter.propertyName isEqualToString:@"price"]) {
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:filter.propertyName ascending:ascending comparator:^(id obj1, id obj2) {
+                if ([obj1 integerValue] > [obj2 integerValue]) {
+                    return (NSComparisonResult)NSOrderedDescending;
+                } else if ([obj1 integerValue] < [obj2 integerValue]) {
+                    return (NSComparisonResult)NSOrderedAscending;
+                }
+                return (NSComparisonResult)NSOrderedSame;
+            }];
+        } else {
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:filter.propertyName ascending:ascending selector:@selector(localizedCaseInsensitiveCompare:)];
+        }
+        [sortDescriptorArray addObject:sortDescriptor];
+    }
+    [self.carArray sortUsingDescriptors:sortDescriptorArray];
+    [self.tableView reloadData];
 }
 
 @end

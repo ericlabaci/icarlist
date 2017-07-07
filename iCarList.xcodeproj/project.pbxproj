@@ -13,6 +13,8 @@
 		F419B9571EFB15BF003131AB /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F419B9561EFB15BF003131AB /* HomeViewController.m */; };
 		F41AE6EC1EFC5C65001A4184 /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F41AE6EB1EFC5C65001A4184 /* ConfigurationViewController.m */; };
 		F41B13B51F059F1D00ED54E6 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B13B41F059F1D00ED54E6 /* Utils.m */; };
+		F41D3F4D1F0FEA000001254F /* FilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F41D3F4C1F0FEA000001254F /* FilterTableViewCell.m */; };
+		F41D3F501F0FF2420001254F /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = F41D3F4F1F0FF2420001254F /* Filter.m */; };
 		F41D41D01F0EAA8000F421DA /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F41D41CF1F0EAA8000F421DA /* TPKeyboardAvoidingScrollView.m */; };
 		F41D41D31F0EAAC700F421DA /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F41D41D21F0EAAC700F421DA /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		F44C8BE11F014927003E58CB /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F44C8BE01F014927003E58CB /* WebViewController.m */; };
@@ -29,6 +31,7 @@
 		F4B9A6471EF1CB7A001E099C /* CarListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9A6461EF1CB7A001E099C /* CarListTableViewController.m */; };
 		F4B9A64D1EF1CBF7001E099C /* CarListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9A64C1EF1CBF7001E099C /* CarListTableViewCell.m */; };
 		F4B9A6521EF1D36F001E099C /* CarInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B9A6511EF1D36F001E099C /* CarInfoViewController.m */; };
+		F4E097E71F0FCD1600A15B6F /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E097E61F0FCD1600A15B6F /* SearchViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,10 @@
 		F41AE6EB1EFC5C65001A4184 /* ConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationViewController.m; sourceTree = "<group>"; };
 		F41B13B31F059F1D00ED54E6 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		F41B13B41F059F1D00ED54E6 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		F41D3F4B1F0FEA000001254F /* FilterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterTableViewCell.h; sourceTree = "<group>"; };
+		F41D3F4C1F0FEA000001254F /* FilterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTableViewCell.m; sourceTree = "<group>"; };
+		F41D3F4E1F0FF2420001254F /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		F41D3F4F1F0FF2420001254F /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		F41D41CE1F0EAA8000F421DA /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		F41D41CF1F0EAA8000F421DA /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		F41D41D11F0EAAC700F421DA /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
@@ -93,6 +100,8 @@
 		F4B9A64C1EF1CBF7001E099C /* CarListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarListTableViewCell.m; sourceTree = "<group>"; };
 		F4B9A6501EF1D36F001E099C /* CarInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarInfoViewController.h; sourceTree = "<group>"; };
 		F4B9A6511EF1D36F001E099C /* CarInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarInfoViewController.m; sourceTree = "<group>"; };
+		F4E097E51F0FCD1600A15B6F /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		F4E097E61F0FCD1600A15B6F /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,10 +209,11 @@
 			isa = PBXGroup;
 			children = (
 				F404CB1A1EFDBEDB00506D92 /* About */,
-				F4B9A6491EF1CBBF001E099C /* Car List Table */,
 				F4B9A64F1EF1D357001E099C /* Car Info */,
+				F4B9A6491EF1CBBF001E099C /* Car List Table */,
 				F41AE6E91EFC5C51001A4184 /* Configuration */,
 				F419B9541EFB15AF003131AB /* Home */,
+				F4E097E41F0FCCF500A15B6F /* Search */,
 				F44C8BDE1F014910003E58CB /* Web View */,
 			);
 			name = Controllers;
@@ -297,28 +307,12 @@
 		F4B9A6491EF1CBBF001E099C /* Car List Table */ = {
 			isa = PBXGroup;
 			children = (
-				F4B9A64E1EF1CBFC001E099C /* TableViewCell */,
-				F4B9A64A1EF1CBE1001E099C /* TableViewController */,
-			);
-			name = "Car List Table";
-			sourceTree = "<group>";
-		};
-		F4B9A64A1EF1CBE1001E099C /* TableViewController */ = {
-			isa = PBXGroup;
-			children = (
 				F4B9A6451EF1CB7A001E099C /* CarListTableViewController.h */,
 				F4B9A6461EF1CB7A001E099C /* CarListTableViewController.m */,
-			);
-			name = TableViewController;
-			sourceTree = "<group>";
-		};
-		F4B9A64E1EF1CBFC001E099C /* TableViewCell */ = {
-			isa = PBXGroup;
-			children = (
 				F4B9A64B1EF1CBF7001E099C /* CarListTableViewCell.h */,
 				F4B9A64C1EF1CBF7001E099C /* CarListTableViewCell.m */,
 			);
-			name = TableViewCell;
+			name = "Car List Table";
 			sourceTree = "<group>";
 		};
 		F4B9A64F1EF1D357001E099C /* Car Info */ = {
@@ -328,6 +322,19 @@
 				F4B9A6511EF1D36F001E099C /* CarInfoViewController.m */,
 			);
 			name = "Car Info";
+			sourceTree = "<group>";
+		};
+		F4E097E41F0FCCF500A15B6F /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				F4E097E51F0FCD1600A15B6F /* SearchViewController.h */,
+				F4E097E61F0FCD1600A15B6F /* SearchViewController.m */,
+				F41D3F4B1F0FEA000001254F /* FilterTableViewCell.h */,
+				F41D3F4C1F0FEA000001254F /* FilterTableViewCell.m */,
+				F41D3F4E1F0FF2420001254F /* Filter.h */,
+				F41D3F4F1F0FF2420001254F /* Filter.m */,
+			);
+			name = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -470,9 +477,12 @@
 				F4B9A6171EF1CA74001E099C /* AppDelegate.m in Sources */,
 				F41B13B51F059F1D00ED54E6 /* Utils.m in Sources */,
 				F41AE6EC1EFC5C65001A4184 /* ConfigurationViewController.m in Sources */,
+				F4E097E71F0FCD1600A15B6F /* SearchViewController.m in Sources */,
 				F4B9A6521EF1D36F001E099C /* CarInfoViewController.m in Sources */,
 				F41D41D01F0EAA8000F421DA /* TPKeyboardAvoidingScrollView.m in Sources */,
 				F46694A01EFBFFC600748DAA /* NextTextField.m in Sources */,
+				F41D3F501F0FF2420001254F /* Filter.m in Sources */,
+				F41D3F4D1F0FEA000001254F /* FilterTableViewCell.m in Sources */,
 				F45807291EFD946000FD19D4 /* NSString+MD5.m in Sources */,
 				F4175B521EF85C4A005278D9 /* CarInfo.m in Sources */,
 				F4B9A6141EF1CA74001E099C /* main.m in Sources */,

@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "CarInfoViewController.h"
+#import "SearchViewController.h"
 
-@interface CarListTableViewController : UITableViewController <CarInfoViewControllerDelegate> {
+@interface CarListTableViewController : UITableViewController <CarInfoViewControllerDelegate, SearchViewControllerDelegate> {
     UIView *overlay;
     NSUserDefaults *userDefaults;
     bool overlayIsShown;
 }
 
 @property (strong, nonatomic) NSMutableArray *carArray;
-
-- (IBAction)searchSort:(id)sender;
 
 @end
