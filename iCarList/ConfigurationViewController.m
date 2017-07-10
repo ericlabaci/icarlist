@@ -46,7 +46,15 @@
 */
 
 - (void)reloadNumberOfCars {
-    self.labelNumberOfCars.text = [NSString stringWithFormat:@"Number of cars: %ld", [self numberOfCars]];
+    NSInteger nCars = [self numberOfCars];
+    self.labelNumberOfCars.text = [NSString stringWithFormat:@"Number of cars: %ld", nCars];
+    if (nCars == 0) {
+        self.buttonClearCars.enabled = NO;
+        self.buttonClearCars.alpha = 0.5f;
+    } else {
+        self.buttonClearCars.enabled = YES;
+        self.buttonClearCars.alpha = 1.0f;
+    }
 }
 
 - (NSInteger)numberOfCars {
