@@ -24,8 +24,8 @@
     self.buttonClearCars.layer.masksToBounds = YES;
     self.buttonClearCars.layer.cornerRadius = DEFAULT_BUTTON_CORNER_RADIUS;
     
-    self.buttonClearFilters.layer.masksToBounds = YES;
-    self.buttonClearFilters.layer.cornerRadius = DEFAULT_BUTTON_CORNER_RADIUS;
+    self.buttonClearSort.layer.masksToBounds = YES;
+    self.buttonClearSort.layer.cornerRadius = DEFAULT_BUTTON_CORNER_RADIUS;
     
     [self reloadNumberOfCars];
 }
@@ -124,9 +124,9 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (IBAction)clearFilters:(id)sender {
+- (IBAction)clearSort:(id)sender {
     //Create alert
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Reset filters?" message:@"This action cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Reset sorting?" message:@"This action cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
     //Create action for Clear Cars button
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Reset" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -134,7 +134,7 @@
         NSRange keyRange = KEY_RANGE;
         
         for (NSString *key in keys) {
-            if ([[key substringWithRange:keyRange] isEqualToString:KEY_TYPE_FILTER_CONFIG]) {
+            if ([[key substringWithRange:keyRange] isEqualToString:KEY_TYPE_SORT_CONFIG]) {
                 [userDefaults removeObjectForKey:key];
             }
         }

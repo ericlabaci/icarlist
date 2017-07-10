@@ -1,12 +1,12 @@
 //
-//  Filter.m
+//  Sort.m
 //  iCarList
 //
 //  Created by Eric Labaci on 7/7/17.
 //  Copyright © 2017 Eric Labaci. All rights reserved.
 //
 
-#import "Filter.h"
+#import "Sort.h"
 
 #define KEY_NAME @"name"
 #define KEY_PROPERTY @"property"
@@ -15,7 +15,7 @@
 #define NUMBER_TO_CHAR(x) [NSNumber numberWithChar:x]
 #define CHAR_TO_NUMBER(x) [x charValue]
 
-@implementation Filter
+@implementation Sort
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
@@ -34,13 +34,13 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    Filter *filter = [Filter new];
+    Sort *sort = [Sort new];
     
-    filter.name = self.name;
-    filter.propertyName = self.propertyName;
-    filter.state = self.state;
+    sort.name = self.name;
+    sort.propertyName = self.propertyName;
+    sort.state = self.state;
     
-    return filter;
+    return sort;
 }
 
 @end

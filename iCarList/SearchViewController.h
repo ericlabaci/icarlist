@@ -15,16 +15,16 @@
 @end
 
 @interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-    NSMutableArray *filterArrayCopy;
+    NSMutableArray *sortArrayCopy;
 }
 
 @property (strong, nonatomic) id <SearchViewControllerDelegate> delegate;
 
-@property (weak, nonatomic) NSMutableArray *filterArray;
+@property (weak, nonatomic) NSMutableArray *sortArray;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-- (IBAction)applyFilters:(id)sender;
-- (IBAction)resetFilters:(id)sender;
+- (IBAction)applySort:(id)sender;
+- (IBAction)resetSort:(id)sender;
 
 @end

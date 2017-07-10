@@ -7,8 +7,8 @@
 //
 
 #import "SearchViewController.h"
-#import "FilterTableViewCell.h"
-#import "Filter.h"
+#import "SortTableViewCell.h"
+#import "Sort.h"
 
 @interface SearchViewController ()
 
@@ -22,8 +22,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-//    filterArrayCopy = [self.filterArray mutableCopy];
-    filterArrayCopy = [[NSMutableArray alloc] initWithArray:self.filterArray copyItems:YES];
+    sortArrayCopy = [[NSMutableArray alloc] initWithArray:self.sortArray copyItems:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,66 +45,66 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return filterArrayCopy.count;
+    return sortArrayCopy.count;
 }
 
-- (FilterTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    FilterTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"FilterCell"];
+- (SortTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SortTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"SortCell"];
     NSInteger row = indexPath.row;
-    Filter *filter = [filterArrayCopy objectAtIndex:row];
+    Sort *s = [sortArrayCopy objectAtIndex:row];
     
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    [cell.labelFilterName setText:filter.name];
-    [cell reloadImageWithState:filter.state];
+    [cell.labelSortName setText:s.name];
+    [cell reloadImageWithState:s.state];
 
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row;
-    Filter *filter = [filterArrayCopy objectAtIndex:row];
-    filter.state = [self nextFilterStateFrom:filter.state];
-    [filterArrayCopy setObject:filter atIndexedSubscript:row];
+    Sort *s = [sortArrayCopy objectAtIndex:row];
+    s.state = [self nextSortStateFrom:s.state];
+    [sortArrayCopy setObject:s atIndexedSubscript:row];
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
-- (FilterState)nextFilterStateFrom:(FilterState)state {
+- (SortState)nextSortStateFrom:(SortState)state {
     switch(state) {
-        case FilterStateDisabled:
-            return FilterStateAscending;
+        case SortStateDisabled:
+            return SortStateAscending;
             break;
             
-        case FilterStateAscending:
-            return FilterStateDescending;
+        case SortStateAscending:
+            return SortStateDescending;
             break;
             
-        case FilterStateDescending:
-            return FilterStateDisabled;
+        case SortStateDescending:
+            return SortStateDisabled;
             break;
     }
-    return FilterStateDisabled;
+    return SortStateDisabled;
 }
 
-- (IBAction)applyFilters:(id)sender {
+- (IBAction)applySort:(id)sender {
     BOOL enabled = NO;
     
-    for (Filter *filter in filterArrayCopy) {
-        if (filter.state != FilterStateDisabled) {
+    for (Sort *sort in sortArrayCopy) {
+        if (sort.state != SortStateDisabled) {
             enabled = YES;
             break;
         }
     }
     
     if (enabled) {
-        for (int i = 0; i < filterArrayCopy.count; i++) {
-            ((Filter *)self.filterArray[i]).state = ((Filter *)filterArrayCopy[i]).state;
+        for (int i = 0; i < sortArrayCopy.count; i++) {
+            ((Sort *)self.sortArray[i]).state = ((Sort *)sortArrayCopy[i]).state;
         }
         [self.delegate didApplyOrdering];
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No filter enabled" message:@"Please enable at least one filter." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No sorting parameter enabled" message:@"Please enable at least one sort parameter." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOK = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
         
         [alert addAction:actionOK];
@@ -114,13 +113,13 @@
     }
 }
 
-- (IBAction)resetFilters:(id)sender {
+- (IBAction)resetSort:(id)sender {
     NSIndexPath *indexPath;
-    for (int i = 0; i < filterArrayCopy.count; i++) {
+    for (int i = 0; i < sortArrayCopy.count; i++) {
         if (i < 3) {
-            ((Filter *)filterArrayCopy[i]).state = FilterStateAscending;
+            ((Sort *)sortArrayCopy[i]).state = SortStateAscending;
         } else {
-            ((Filter *)filterArrayCopy[i]).state = FilterStateDisabled;
+            ((Sort *)sortArrayCopy[i]).state = SortStateDisabled;
         }
         indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];

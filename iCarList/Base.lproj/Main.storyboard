@@ -190,30 +190,30 @@
                                     <action selector="clearCars:" destination="4rB-xt-j6m" eventType="touchUpInside" id="B80-2x-Ljd"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9i2-cp-eBi">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorting" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9i2-cp-eBi">
                                 <rect key="frame" x="16" y="164" width="288" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxj-io-jnL">
-                                <rect key="frame" x="100" y="196" width="120" height="36"/>
+                                <rect key="frame" x="92" y="196" width="137" height="36"/>
                                 <color key="backgroundColor" red="1" green="0.26770479409999998" blue="0.22929745039999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="Z2y-8A-BiK"/>
+                                    <constraint firstAttribute="width" constant="137" id="Z2y-8A-BiK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Reset Filters">
+                                <state key="normal" title="Reset Sorting">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="clearFilters:" destination="4rB-xt-j6m" eventType="touchUpInside" id="hze-aO-SAu"/>
+                                    <action selector="clearSort:" destination="4rB-xt-j6m" eventType="touchUpInside" id="iP3-U3-Tbn"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="yxj-io-jnL" firstAttribute="centerX" secondItem="5b3-cv-NdE" secondAttribute="centerX" id="9pT-Ar-Ifw"/>
+                            <constraint firstItem="yxj-io-jnL" firstAttribute="centerX" secondItem="5b3-cv-NdE" secondAttribute="centerX" constant="0.5" id="9pT-Ar-Ifw"/>
                             <constraint firstItem="R2U-CD-aIz" firstAttribute="leading" secondItem="5b3-cv-NdE" secondAttribute="leadingMargin" id="Hph-RH-Jz0"/>
                             <constraint firstItem="R2U-CD-aIz" firstAttribute="trailing" secondItem="5b3-cv-NdE" secondAttribute="trailingMargin" id="PE7-xq-OdQ"/>
                             <constraint firstItem="h61-g3-FZe" firstAttribute="top" secondItem="9Ku-Bl-BgB" secondAttribute="bottom" constant="8" id="W62-U5-ayZ"/>
@@ -232,7 +232,7 @@
                     <navigationItem key="navigationItem" title="Configuration" id="q0f-xo-C2i"/>
                     <connections>
                         <outlet property="buttonClearCars" destination="xuX-qU-uPh" id="utq-7y-x2M"/>
-                        <outlet property="buttonClearFilters" destination="yxj-io-jnL" id="BKp-O5-kP3"/>
+                        <outlet property="buttonClearSort" destination="yxj-io-jnL" id="iFX-kB-VxZ"/>
                         <outlet property="buttonEraseData" destination="9Ku-Bl-BgB" id="R17-yW-dyx"/>
                         <outlet property="labelNumberOfCars" destination="R2U-CD-aIz" id="Sef-QZ-PhK"/>
                     </connections>
@@ -350,20 +350,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="520"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterCell" id="8Fk-oy-K8m" customClass="FilterTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SortCell" id="8Fk-oy-K8m" customClass="SortTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Fk-oy-K8m" id="Yzw-51-PBB">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FilterType" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlB-mY-yVe">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SortType" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlB-mY-yVe">
                                                     <rect key="frame" x="8" y="8" width="268" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FilterDisabled" translatesAutoresizingMaskIntoConstraints="NO" id="w9A-Qf-j5X">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SortDisabled" translatesAutoresizingMaskIntoConstraints="NO" id="w9A-Qf-j5X">
                                                     <rect key="frame" x="284" y="8" width="28" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="w9A-Qf-j5X" secondAttribute="height" multiplier="1:1" id="Klc-dr-7U9"/>
@@ -384,8 +384,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="imageFilterState" destination="w9A-Qf-j5X" id="5J4-k8-F9s"/>
-                                            <outlet property="labelFilterName" destination="nlB-mY-yVe" id="9cX-Bh-doj"/>
+                                            <outlet property="imageSortState" destination="w9A-Qf-j5X" id="jtm-iv-t6L"/>
+                                            <outlet property="labelSortName" destination="nlB-mY-yVe" id="jlD-Iu-dK3"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -397,11 +397,11 @@
                                     <constraint firstAttribute="height" constant="40" id="hBe-Dh-Izp"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Apply Filters">
+                                <state key="normal" title="Sort">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="applyFilters:" destination="XNe-iP-JGK" eventType="touchUpInside" id="1h3-ji-jSJ"/>
+                                    <action selector="applySort:" destination="XNe-iP-JGK" eventType="touchUpInside" id="Bdd-tg-24U"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -419,7 +419,7 @@
                     <navigationItem key="navigationItem" title="Search" id="ljV-5H-dwR">
                         <barButtonItem key="rightBarButtonItem" title="Reset" id="QKj-Ie-ufk">
                             <connections>
-                                <action selector="resetFilters:" destination="XNe-iP-JGK" id="aHd-aX-rtO"/>
+                                <action selector="resetSort:" destination="XNe-iP-JGK" id="AMs-pO-3Gq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -810,9 +810,9 @@
     </scenes>
     <resources>
         <image name="Delete1" width="48" height="48"/>
-        <image name="FilterDisabled" width="48" height="48"/>
         <image name="HomeScreenBackground" width="960" height="640"/>
         <image name="InsertPhoto" width="48" height="48"/>
+        <image name="SortDisabled" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sU8-a1-Ve8"/>

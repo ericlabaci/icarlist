@@ -1,5 +1,5 @@
 //
-//  Filter.h
+//  Sort.h
 //  iCarList
 //
 //  Created by Eric Labaci on 7/7/17.
@@ -8,16 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(char, FilterState) {
-    FilterStateDisabled,
-    FilterStateAscending,
-    FilterStateDescending
+typedef NS_ENUM(char, SortState) {
+    SortStateDisabled,
+    SortStateAscending,
+    SortStateDescending
 };
 
-@interface Filter : NSObject <NSCoding, NSCopying>
+@interface Sort : NSObject <NSCoding, NSCopying>
 
 @property (strong, nonatomic, nonnull) NSString *name;
 @property (strong, nonatomic, nonnull) NSString *propertyName;
-@property (nonatomic) FilterState state;
+@property (nonatomic) SortState state;
 
 @end

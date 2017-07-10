@@ -10,11 +10,11 @@
 #import "CarListTableViewCell.h"
 #import "CarInfo.h"
 #import "Defines.h"
-#import "Filter.h"
+#import "Sort.h"
 
 @interface CarListTableViewController ()
 
-@property (strong, nonatomic) NSMutableArray *filterArray;
+@property (strong, nonatomic) NSMutableArray *sortArray;
 
 @end
 
@@ -32,7 +32,7 @@
     //Enable paging in tableView
     self.tableView.pagingEnabled = YES;
 
-    [self loadFilterConfiguration];
+    [self loadSortConfiguration];
     [self loadCarList];
 }
 
@@ -92,7 +92,7 @@
         }
     });
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [self filterCaryArray];
+        [self sortCarArray];
         [self refreshCarList];
     });
 }
@@ -185,7 +185,7 @@
     } else if ([[segue identifier] isEqualToString:@"SearchCarSegue"]) {
         SearchViewController *searchVC = [segue destinationViewController];
         searchVC.delegate = self;
-        searchVC.filterArray = self.filterArray;
+        searchVC.sortArray = self.sortArray;
     }
 }
 
@@ -206,7 +206,7 @@
         self.tableView.userInteractionEnabled = YES;
     }
     [self.carArray addObject:carInfo];
-    [self filterCaryArray];
+    [self sortCarArray];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void) {
         NSData *carData = [NSKeyedArchiver archivedDataWithRootObject:carInfo];
         
@@ -232,27 +232,27 @@
     return [self saveNewCar:carInfo];
 }
 
-#pragma mark - Sort and filter methods
-- (void)filterCaryArray {
+#pragma mark - Sort methods
+- (void)sortCarArray {
     NSMutableArray *sortDescriptorArray = [NSMutableArray new];
-    for (Filter *filter in self.filterArray) {
+    for (Sort *sort in self.sortArray) {
         NSSortDescriptor *sortDescriptor;
         BOOL ascending;
         
-        if (filter.state == FilterStateDisabled) {
+        if (sort.state == SortStateDisabled) {
             continue;
-        } else if (filter.state == FilterStateAscending) {
+        } else if (sort.state == SortStateAscending) {
             ascending = YES;
-        } else if (filter.state == FilterStateDescending) {
+        } else if (sort.state == SortStateDescending) {
             ascending = NO;
         } else {
             ascending = NO;
         }
         
-        if ([filter.propertyName isEqualToString:@"price"] ||
-            [filter.propertyName isEqualToString:@"horsepower"] ||
-            [filter.propertyName isEqualToString:@"torque"]) {
-            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:filter.propertyName ascending:ascending comparator:^(id obj1, id obj2) {
+        if ([sort.propertyName isEqualToString:@"price"] ||
+            [sort.propertyName isEqualToString:@"horsepower"] ||
+            [sort.propertyName isEqualToString:@"torque"]) {
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:sort.propertyName ascending:ascending comparator:^(id obj1, id obj2) {
                 if ([obj1 doubleValue] > [obj2 doubleValue]) {
                     return (NSComparisonResult)NSOrderedDescending;
                 } else if ([obj1 doubleValue] < [obj2 doubleValue]) {
@@ -261,50 +261,50 @@
                 return (NSComparisonResult)NSOrderedSame;
             }];
         } else {
-            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:filter.propertyName ascending:ascending selector:@selector(localizedCaseInsensitiveCompare:)];
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:sort.propertyName ascending:ascending selector:@selector(localizedCaseInsensitiveCompare:)];
         }
         [sortDescriptorArray addObject:sortDescriptor];
     }
     
-    for (Filter *filter in self.filterArray) {
-        NSString *key = [NSString stringWithFormat:@"%@%@", KEY_TYPE_FILTER_CONFIG, filter.propertyName];
+    for (Sort *sort in self.sortArray) {
+        NSString *key = [NSString stringWithFormat:@"%@%@", KEY_TYPE_SORT_CONFIG, sort.propertyName];
         
         if ([userDefaults objectForKey:key] != nil) {
             [userDefaults removeObjectForKey:key];
         }
-        [userDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:filter] forKey:key];
+        [userDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:sort] forKey:key];
     }
     
     [self.carArray sortUsingDescriptors:sortDescriptorArray];
     [self.tableView reloadData];
 }
 
-- (void)loadFilterConfiguration {
+- (void)loadSortConfiguration {
     NSArray *keys = [[userDefaults dictionaryRepresentation] allKeys];
     NSRange range = KEY_RANGE;
-    NSArray *filterNames = @[@"Make", @"Model", @"Year", @"Price", @"Configuration", @"Power (HP)", @"Torque (kgf*m)"];
+    NSArray *sortNames = @[@"Make", @"Model", @"Year", @"Price", @"Configuration", @"Power (HP)", @"Torque (kgf*m)"];
     NSArray *propertyNames = @[@"make", @"model", @"year", @"price", @"configuration", @"horsepower", @"torque"];
     
-    self.filterArray = [NSMutableArray new];
-    for (int i = 0; i < filterNames.count; i++) {
-        Filter *filter = [Filter new];
-        filter.name = [filterNames objectAtIndex:i];
-        filter.propertyName = [propertyNames objectAtIndex:i];
-        filter.state = FilterStateDisabled;
-        [self.filterArray addObject:filter];
+    self.sortArray = [NSMutableArray new];
+    for (int i = 0; i < sortNames.count; i++) {
+        Sort *sort = [Sort new];
+        sort.name = [sortNames objectAtIndex:i];
+        sort.propertyName = [propertyNames objectAtIndex:i];
+        sort.state = SortStateDisabled;
+        [self.sortArray addObject:sort];
     }
     
     for (int i = 0; i < 3; i++) {
-        ((Filter *)self.filterArray[i]).state = FilterStateAscending;
+        ((Sort *)self.sortArray[i]).state = SortStateAscending;
     }
     
     for (NSString *key in keys) {
-        if ([[key substringWithRange:range] isEqualToString:KEY_TYPE_FILTER_CONFIG]) {
-            NSData *filterData = [userDefaults objectForKey:key];
-            Filter *filter = [NSKeyedUnarchiver unarchiveObjectWithData:filterData];
-            for (Filter *filterAux in self.filterArray) {
-                if ([filter.propertyName isEqualToString:filterAux.propertyName]) {
-                    filterAux.state = filter.state;
+        if ([[key substringWithRange:range] isEqualToString:KEY_TYPE_SORT_CONFIG]) {
+            NSData *sortData = [userDefaults objectForKey:key];
+            Sort *sort = [NSKeyedUnarchiver unarchiveObjectWithData:sortData];
+            for (Sort *sortAux in self.sortArray) {
+                if ([sort.propertyName isEqualToString:sortAux.propertyName]) {
+                    sortAux.state = sort.state;
                     break;
                 }
             }
@@ -313,7 +313,7 @@
 }
 
 - (void)didApplyOrdering {
-    [self filterCaryArray];
+    [self sortCarArray];
 }
 
 @end

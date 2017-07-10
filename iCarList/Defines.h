@@ -15,7 +15,7 @@
 //UserDefault Key Types
 #define KEY_TYPE_LENGTH 4
 #define KEY_TYPE_CAR @"0x00"
-#define KEY_TYPE_FILTER_CONFIG @"0x01"
+#define KEY_TYPE_SORT_CONFIG @"0x01"
 
 //Key size range
 #define KEY_RANGE NSMakeRange(0, 4)
