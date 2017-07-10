@@ -66,6 +66,9 @@
     self.buttonAddImage.layer.masksToBounds = YES;
     self.buttonAddImage.layer.cornerRadius = CORNER_RADIUS;
     
+    self.buttonDeleteImage.layer.masksToBounds = YES;
+    self.buttonDeleteImage.layer.cornerRadius = CORNER_RADIUS;
+    
     [self reload];
 }
 
@@ -123,8 +126,8 @@
     self.labelTitle.text = [NSString stringWithFormat:@"%@ %@ %@", self.carInfo.make, self.carInfo.model, self.carInfo.year];
     self.labelPrice.text = [NSString stringWithFormat:@"%@", (self.carInfo.price > 0) ? [NSString stringWithFormat:@"R$ %@,00", priceString] : @"N/A"];
     self.labelConfiguration.text = [NSString stringWithFormat:@"%@", (self.carInfo.configuration != nil) ? ((self.carInfo.configuration.length > 0) ? self.carInfo.configuration : @"N/A") : @"N/A"];
-    self.labelNumberDoors.text = [NSString stringWithFormat:@"%@", (self.carInfo.numberOfDoors > 0) ? [NSString stringWithFormat:@"%ld", self.carInfo.numberOfDoors] : @"N/A"];
-    self.labelPower.text = [NSString stringWithFormat:@"%@", (self.carInfo.horsepower > 0) ? [NSString stringWithFormat:@"%ld HP", self.carInfo.horsepower] : @"N/A"];
+    self.labelNumberDoors.text = [NSString stringWithFormat:@"%@", (self.carInfo.numberOfDoors > 0) ? [NSString stringWithFormat:@"%ld", (long)self.carInfo.numberOfDoors] : @"N/A"];
+    self.labelPower.text = [NSString stringWithFormat:@"%@", (self.carInfo.horsepower > 0) ? [NSString stringWithFormat:@"%ld HP", (long)self.carInfo.horsepower] : @"N/A"];
     self.labelTorque.text = [NSString stringWithFormat:@"%@", (self.carInfo.torque > 0) ? [NSString stringWithFormat:@"%.1lf kgf*m", self.carInfo.torque] : @"N/A"];
 }
 
@@ -269,10 +272,10 @@
         self.textFieldMake.text = self.carInfo.make;
         self.textFieldModel.text = self.carInfo.model;
         self.textFieldYear.text = self.carInfo.year;
-        self.textFieldPrice.text = [NSString stringWithFormat:@"%ld", self.carInfo.price];
+        self.textFieldPrice.text = [NSString stringWithFormat:@"%ld", (long)self.carInfo.price];
         self.textFieldConfiguration.text = self.carInfo.configuration;
-        self.textFieldNumberDoors.text = [NSString stringWithFormat:@"%ld", self.carInfo.numberOfDoors];
-        self.textFieldPower.text = [NSString stringWithFormat:@"%ld", self.carInfo.horsepower];
+        self.textFieldNumberDoors.text = [NSString stringWithFormat:@"%ld", (long)self.carInfo.numberOfDoors];
+        self.textFieldPower.text = [NSString stringWithFormat:@"%ld", (long)self.carInfo.horsepower];
         self.textFieldTorque.text = [NSString stringWithFormat:@"%.1lf", self.carInfo.torque];
     }
     
@@ -283,6 +286,7 @@
     
     //Not hidden in edit/new mode
     [self animateViewFade:self.buttonAddImage withFadeType:editFade withTimeInterval:interval];
+    [self animateViewFade:self.buttonDeleteImage withFadeType:editFade withTimeInterval:interval];
     for (NextTextField *textField in self.textFieldCollection) {
         [self animateViewFade:textField withFadeType:editFade withTimeInterval:interval];
     }
@@ -390,6 +394,26 @@
     [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
+- (IBAction)deleteImage:(id)sender {
+    //Create alert
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete this image?" message:@"This action cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+    //Create action for Clear Cars button
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
+        NSInteger index = [self.photoScroller currentImageIndex];
+        if ([self.photoScroller deleteImageAtIndex:index]) {
+            [imageArray removeObjectAtIndex:index];
+        }
+    }];
+    //Create action for Cancel button
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    //Add actions to alert
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
+    
+    //Present alert
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 - (void)attachImageFromURLAction:(NSString *)stringURL {
     [self dismissViewControllerAnimated:YES completion:nil];
     if (![self attachImageFromURL:stringURL]) {
@@ -437,7 +461,7 @@
 
 //Get URL string from webViewController
 - (BOOL)getStringURL:(NSString *)stringURL {
-    NSLog(@"%@", stringURL);
+    NSLog(@"Downloading image from\n%@", stringURL);
     return [self attachImageFromURL:stringURL];
 }
 

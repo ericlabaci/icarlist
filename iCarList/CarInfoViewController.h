@@ -58,6 +58,7 @@ typedef NS_ENUM(char, CarInfoViewControllerModes) {
 
 //Editing mode
 @property (weak, nonatomic) IBOutlet UIButton *buttonAddImage;
+@property (weak, nonatomic) IBOutlet UIButton *buttonDeleteImage;
 @property (weak, nonatomic) IBOutlet NextTextField *textFieldMake;
 @property (weak, nonatomic) IBOutlet NextTextField *textFieldModel;
 @property (weak, nonatomic) IBOutlet NextTextField *textFieldYear;
@@ -75,5 +76,6 @@ typedef NS_ENUM(char, CarInfoViewControllerModes) {
 
 - (IBAction)actionGoBack:(id)sender;
 - (IBAction)attachImage:(id)sender;
+- (IBAction)deleteImage:(id)sender;
 
 @end

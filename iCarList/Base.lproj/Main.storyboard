@@ -449,6 +449,12 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Gg-jW-uGa" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ex1-5E-JGv" customClass="PhotoScroller">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="200" id="2Gt-V2-D4h"/>
+                                                </constraints>
+                                            </view>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8rZ-uv-1Cz" userLabel="Text Field Price" customClass="NextTextField">
                                                 <rect key="frame" x="62" y="249" width="110" height="30"/>
                                                 <constraints>
@@ -471,12 +477,6 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ex1-5E-JGv" customClass="PhotoScroller">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="200" id="2Gt-V2-D4h"/>
-                                                </constraints>
-                                            </view>
                                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Make" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="frf-mH-ZM0" customClass="NextTextField">
                                                 <rect key="frame" x="8" y="208" width="96" height="30"/>
                                                 <nil key="textColor"/>
@@ -658,6 +658,18 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUg-WU-dMa">
+                                                <rect key="frame" x="280" y="8" width="32" height="32"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.84864619006849318" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="32" id="8Qa-Rl-v5B"/>
+                                                    <constraint firstAttribute="height" constant="32" id="gEh-PC-sQR"/>
+                                                </constraints>
+                                                <state key="normal" image="Delete1"/>
+                                                <connections>
+                                                    <action selector="deleteImage:" destination="QqR-g4-qAh" eventType="touchUpInside" id="vXW-vH-ZFD"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -666,6 +678,7 @@
                                             <constraint firstItem="2IU-P0-oEJ" firstAttribute="leading" secondItem="8Bp-N1-JaL" secondAttribute="trailing" constant="4" id="28n-dF-B93"/>
                                             <constraint firstItem="8Bp-N1-JaL" firstAttribute="top" secondItem="8rZ-uv-1Cz" secondAttribute="bottom" constant="8" id="2He-ji-7X3"/>
                                             <constraint firstItem="W0h-sk-Zsj" firstAttribute="leading" secondItem="2Gg-jW-uGa" secondAttribute="leading" constant="8" id="2cJ-2D-PV7"/>
+                                            <constraint firstItem="xUg-WU-dMa" firstAttribute="top" secondItem="2Gg-jW-uGa" secondAttribute="top" constant="8" id="5jg-Mr-rgt"/>
                                             <constraint firstItem="UGc-S3-xJ3" firstAttribute="top" secondItem="THe-vF-7Wh" secondAttribute="bottom" constant="17" id="69w-aX-DoE"/>
                                             <constraint firstItem="chI-Ju-5Ab" firstAttribute="leading" secondItem="UGc-S3-xJ3" secondAttribute="trailing" constant="4" id="6BF-I1-toX"/>
                                             <constraint firstItem="WyN-RD-Gli" firstAttribute="top" secondItem="Esv-NH-Z5p" secondAttribute="bottom" constant="9" id="6bj-p5-21i"/>
@@ -679,6 +692,7 @@
                                             <constraint firstItem="Ckd-dk-dk2" firstAttribute="top" secondItem="8rZ-uv-1Cz" secondAttribute="bottom" constant="4" id="EKT-FV-xvP"/>
                                             <constraint firstItem="8rZ-uv-1Cz" firstAttribute="leading" secondItem="W6e-eA-u2Z" secondAttribute="trailing" constant="4" id="FPK-RG-u9r"/>
                                             <constraint firstItem="8rZ-uv-1Cz" firstAttribute="top" secondItem="wO6-K5-gIX" secondAttribute="bottom" constant="5" id="KT4-aW-6aV"/>
+                                            <constraint firstAttribute="trailing" secondItem="xUg-WU-dMa" secondAttribute="trailing" constant="8" id="N9Y-Bb-kpz"/>
                                             <constraint firstItem="THe-vF-7Wh" firstAttribute="top" secondItem="8Bp-N1-JaL" secondAttribute="bottom" constant="13" id="PBt-fj-mwP"/>
                                             <constraint firstItem="chI-Ju-5Ab" firstAttribute="top" secondItem="Esv-NH-Z5p" secondAttribute="bottom" constant="13" id="QMo-UB-7LU"/>
                                             <constraint firstItem="jfo-T3-eet" firstAttribute="leading" secondItem="4sl-EH-Sjg" secondAttribute="trailing" constant="8" id="Qlg-CI-tdh"/>
@@ -738,6 +752,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="buttonAddImage" destination="96d-IM-VqZ" id="tvS-5J-u4u"/>
+                        <outlet property="buttonDeleteImage" destination="xUg-WU-dMa" id="muX-Bw-V8i"/>
                         <outlet property="contentView" destination="2Gg-jW-uGa" id="nBU-fP-BFg"/>
                         <outlet property="labelConfiguration" destination="2IU-P0-oEJ" id="YvW-Z2-Pyj"/>
                         <outlet property="labelNumberDoors" destination="dgF-Ij-n2u" id="qTT-LT-Sww"/>
@@ -794,6 +809,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Delete1" width="48" height="48"/>
         <image name="FilterDisabled" width="48" height="48"/>
         <image name="HomeScreenBackground" width="960" height="640"/>
         <image name="InsertPhoto" width="48" height="48"/>

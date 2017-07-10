@@ -12,6 +12,7 @@
     UIScrollView *scrollView;
     UIPageControl *pageControl;
     NSMutableArray *imageArray;
+    NSMutableArray *imageViewArray;
     int imagesAdded;
     CGRect ViewSize;
     int width;
@@ -21,5 +22,8 @@
 - (void)setImageArray:(NSMutableArray *)array;
 - (void)loadGallery;
 - (void)addImage:(UIImage *)image;
+- (BOOL)deleteImageAtIndex:(NSInteger)index;
+
+- (NSInteger)currentImageIndex;
 
 @end

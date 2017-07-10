@@ -43,26 +43,13 @@
     //[self setNeedsLayout];
     //[self layoutIfNeeded];
     
+    imageViewArray = [NSMutableArray new];
+    
     width = self.bounds.size.width;
     height = self.bounds.size.height;
     
     //Create scrollView
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, width, height)];
-    /*
-    scrollView = [UIScrollView new];
-    [self addSubview:scrollView];
-    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    [[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:0] setActive:YES];
-    //[[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0] setActive:YES];
-    [[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0] setActive:YES];
-    //[[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0] setActive:YES];
-    [[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0] setActive:YES];
-    [[NSLayoutConstraint constraintWithItem:scrollView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0] setActive:YES];
-    [scrollView setNeedsLayout];
-    [scrollView layoutIfNeeded];
-    NSLog(@"%f %f", self.frame.size.width, self.frame.size.height);
-    NSLog(@"%f %f", scrollView.frame.size.width, scrollView.frame.size.height);
-    */
     scrollView.backgroundColor = [UIColor clearColor];
     scrollView.pagingEnabled = YES;
     scrollView.showsHorizontalScrollIndicator = NO;
@@ -118,18 +105,43 @@
     [scrollView addSubview:imageView];
     
     if (inc) {
+        //Add imageView to array so it can be removed later
+        [imageViewArray addObject:imageView];
+        
         //Increment images added
         imagesAdded++;
         
         //Update ViewSize
         ViewSize = CGRectOffset(ViewSize, width, 0);
-        
-        //Update pageControl
-        [pageControl setFrame:CGRectMake(width / 2 - imagesAdded * 6, height - 45, imagesAdded * 12, 37)];
-        pageControl.numberOfPages = imagesAdded;
+
+        [self updatePageControl];
     }
     //Update scrollView contentSize
     scrollView.contentSize = CGSizeMake(imagesAdded * width, height);
+}
+
+- (BOOL)deleteImageAtIndex:(NSInteger)index {
+    if (index >= imageViewArray.count)
+        return NO;
+    UIImageView *imageView = [imageViewArray objectAtIndex:index];
+    [imageViewArray removeObjectAtIndex:index];
+    [imageArray removeObjectAtIndex:index];
+    
+    imagesAdded--;
+    ViewSize = CGRectOffset(ViewSize, -width, 0);
+    
+    CGRect frame = CGRectMake(index * width, 0, width, height);
+    for (int i = (int)index; i < imagesAdded; i++) {
+        [((UIImageView *)imageViewArray[i]) setFrame:frame];
+        frame = CGRectOffset(frame, width, 0);
+    }
+    scrollView.contentSize = CGSizeMake(imagesAdded * width, height);
+    
+    [self updatePageControl];
+    
+    [imageView removeFromSuperview];
+    
+    return YES;
 }
 
 - (void)addNotAvailableImage {
@@ -159,6 +171,15 @@
 //Change image displayed when the user clicks on the page controller
 - (void)changePage:(UIPageControl *)sender {
     [scrollView setContentOffset:CGPointMake(sender.currentPage * self.frame.size.width, 0) animated:YES];
+}
+
+- (NSInteger)currentImageIndex {
+    return [self currentPage];
+}
+
+- (void)updatePageControl {
+    [pageControl setFrame:CGRectMake(width / 2 - imagesAdded * 6, height - 45, imagesAdded * 12, 37)];
+    pageControl.numberOfPages = imagesAdded;
 }
 
 @end
