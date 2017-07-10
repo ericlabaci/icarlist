@@ -21,7 +21,7 @@
 @property (strong, nonatomic) NSString *configuration;
 @property (nonatomic) NSInteger numberOfDoors;
 @property (nonatomic) NSInteger horsepower;
-@property (nonatomic) NSInteger torque;
+@property (nonatomic) double torque;
 
 
 - (void)generateKey;

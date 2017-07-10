@@ -23,6 +23,9 @@
 #define NUMBER_TO_INTEGER(x) [NSNumber numberWithInteger:x]
 #define INTEGER_TO_NUMBER(x) [x integerValue]
 
+#define NUMBER_TO_DOUBLE(x) [NSNumber numberWithDouble:x]
+#define DOUBLE_TO_NUMBER(x) [x doubleValue]
+
 @implementation CarInfo
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -36,7 +39,7 @@
     self.configuration = [aDecoder decodeObjectForKey:KEY_CONFIGURATION];
     self.numberOfDoors = INTEGER_TO_NUMBER([aDecoder decodeObjectForKey:KEY_DOORS]);
     self.horsepower = INTEGER_TO_NUMBER([aDecoder decodeObjectForKey:KEY_HORSEPOWER]);
-    self.torque = INTEGER_TO_NUMBER([aDecoder decodeObjectForKey:KEY_TORQUE]);
+    self.torque = DOUBLE_TO_NUMBER([aDecoder decodeObjectForKey:KEY_TORQUE]);
     
     return self;
 }
@@ -50,7 +53,7 @@
     [aCoder encodeObject:self.configuration forKey:KEY_CONFIGURATION];
     [aCoder encodeObject:NUMBER_TO_INTEGER(self.numberOfDoors) forKey:KEY_DOORS];
     [aCoder encodeObject:NUMBER_TO_INTEGER(self.horsepower) forKey:KEY_HORSEPOWER];
-    [aCoder encodeObject:NUMBER_TO_INTEGER(self.torque) forKey:KEY_TORQUE];
+    [aCoder encodeObject:NUMBER_TO_DOUBLE(self.torque) forKey:KEY_TORQUE];
 }
 
 - (void)generateKey {

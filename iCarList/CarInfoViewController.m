@@ -124,6 +124,8 @@
     self.labelPrice.text = [NSString stringWithFormat:@"%@", (self.carInfo.price > 0) ? [NSString stringWithFormat:@"R$ %@,00", priceString] : @"N/A"];
     self.labelConfiguration.text = [NSString stringWithFormat:@"%@", (self.carInfo.configuration != nil) ? ((self.carInfo.configuration.length > 0) ? self.carInfo.configuration : @"N/A") : @"N/A"];
     self.labelNumberDoors.text = [NSString stringWithFormat:@"%@", (self.carInfo.numberOfDoors > 0) ? [NSString stringWithFormat:@"%ld", self.carInfo.numberOfDoors] : @"N/A"];
+    self.labelPower.text = [NSString stringWithFormat:@"%@", (self.carInfo.horsepower > 0) ? [NSString stringWithFormat:@"%ld HP", self.carInfo.horsepower] : @"N/A"];
+    self.labelTorque.text = [NSString stringWithFormat:@"%@", (self.carInfo.torque > 0) ? [NSString stringWithFormat:@"%.1lf kgf*m", self.carInfo.torque] : @"N/A"];
 }
 
 #pragma mark - UIBarButtonItem actions
@@ -163,6 +165,9 @@
         self.carInfo.price = [PRICE_FROM_STRING(self.textFieldPrice.text) integerValue];
         self.carInfo.configuration = SAFE_STRING(self.textFieldConfiguration.text);
         self.carInfo.numberOfDoors = [PRICE_FROM_STRING(self.textFieldNumberDoors.text) integerValue];
+        self.carInfo.horsepower = [PRICE_FROM_STRING(self.textFieldPower.text) integerValue];
+        self.textFieldTorque.text = [self.textFieldTorque.text stringByReplacingOccurrencesOfString:@"," withString:@"."];
+        self.carInfo.torque = [PRICE_FROM_STRING(self.textFieldTorque.text) doubleValue];
         if (self.mode == CarInfoViewControllerModeNew) {
             [self.delegate saveNewCar:self.carInfo];
         } else if (self.mode == CarInfoViewControllerModeEditing) {
@@ -267,6 +272,8 @@
         self.textFieldPrice.text = [NSString stringWithFormat:@"%ld", self.carInfo.price];
         self.textFieldConfiguration.text = self.carInfo.configuration;
         self.textFieldNumberDoors.text = [NSString stringWithFormat:@"%ld", self.carInfo.numberOfDoors];
+        self.textFieldPower.text = [NSString stringWithFormat:@"%ld", self.carInfo.horsepower];
+        self.textFieldTorque.text = [NSString stringWithFormat:@"%.1lf", self.carInfo.torque];
     }
     
     //Not hidden in view mode

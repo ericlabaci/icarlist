@@ -249,11 +249,13 @@
             ascending = NO;
         }
         
-        if ([filter.propertyName isEqualToString:@"price"]) {
+        if ([filter.propertyName isEqualToString:@"price"] ||
+            [filter.propertyName isEqualToString:@"horsepower"] ||
+            [filter.propertyName isEqualToString:@"torque"]) {
             sortDescriptor = [[NSSortDescriptor alloc] initWithKey:filter.propertyName ascending:ascending comparator:^(id obj1, id obj2) {
-                if ([obj1 integerValue] > [obj2 integerValue]) {
+                if ([obj1 doubleValue] > [obj2 doubleValue]) {
                     return (NSComparisonResult)NSOrderedDescending;
-                } else if ([obj1 integerValue] < [obj2 integerValue]) {
+                } else if ([obj1 doubleValue] < [obj2 doubleValue]) {
                     return (NSComparisonResult)NSOrderedAscending;
                 }
                 return (NSComparisonResult)NSOrderedSame;
@@ -280,8 +282,8 @@
 - (void)loadFilterConfiguration {
     NSArray *keys = [[userDefaults dictionaryRepresentation] allKeys];
     NSRange range = KEY_RANGE;
-    NSArray *filterNames = @[@"Make", @"Model", @"Year", @"Price", @"Configuration"];
-    NSArray *propertyNames = @[@"make", @"model", @"year", @"price", @"configuration"];
+    NSArray *filterNames = @[@"Make", @"Model", @"Year", @"Price", @"Configuration", @"Power (HP)", @"Torque (kgf*m)"];
+    NSArray *propertyNames = @[@"make", @"model", @"year", @"price", @"configuration", @"horsepower", @"torque"];
     
     self.filterArray = [NSMutableArray new];
     for (int i = 0; i < filterNames.count; i++) {

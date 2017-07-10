@@ -53,6 +53,8 @@ typedef NS_ENUM(char, CarInfoViewControllerModes) {
 @property (weak, nonatomic) IBOutlet UILabel *labelPrice;
 @property (weak, nonatomic) IBOutlet UILabel *labelConfiguration;
 @property (weak, nonatomic) IBOutlet UILabel *labelNumberDoors;
+@property (weak, nonatomic) IBOutlet UILabel *labelPower;
+@property (weak, nonatomic) IBOutlet UILabel *labelTorque;
 
 //Editing mode
 @property (weak, nonatomic) IBOutlet UIButton *buttonAddImage;
@@ -62,6 +64,8 @@ typedef NS_ENUM(char, CarInfoViewControllerModes) {
 @property (weak, nonatomic) IBOutlet NextTextField *textFieldPrice;
 @property (weak, nonatomic) IBOutlet NextTextField *textFieldConfiguration;
 @property (weak, nonatomic) IBOutlet NextTextField *textFieldNumberDoors;
+@property (weak, nonatomic) IBOutlet NextTextField *textFieldPower;
+@property (weak, nonatomic) IBOutlet NextTextField *textFieldTorque;
 
 //Labels
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labelCollection;

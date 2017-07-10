@@ -11,6 +11,5 @@
 @interface NextTextField : UITextField <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nextField;
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @end
