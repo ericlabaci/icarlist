@@ -25,5 +25,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)applyFilters:(id)sender;
+- (IBAction)resetFilters:(id)sender;
 
 @end

@@ -150,6 +150,7 @@
     if (canSave) {
         NSNumberFormatter *formater = [NSNumberFormatter new];
         formater.numberStyle = NSNumberFormatterDecimalStyle;
+        formater.lenient = YES;
         
         if (self.mode == CarInfoViewControllerModeNew) {
             self.carInfo = [CarInfo new];
@@ -159,9 +160,9 @@
         self.carInfo.model = self.textFieldModel.text;
         self.carInfo.year = self.textFieldYear.text;
         self.carInfo.imageArray = imageArray;
-        self.carInfo.price = [[formater numberFromString:PRICE_FROM_STRING(self.textFieldPrice.text)] integerValue];
+        self.carInfo.price = [PRICE_FROM_STRING(self.textFieldPrice.text) integerValue];
         self.carInfo.configuration = SAFE_STRING(self.textFieldConfiguration.text);
-        self.carInfo.numberOfDoors = [[formater numberFromString:PRICE_FROM_STRING(self.textFieldNumberDoors.text)] integerValue];
+        self.carInfo.numberOfDoors = [PRICE_FROM_STRING(self.textFieldNumberDoors.text) integerValue];
         if (self.mode == CarInfoViewControllerModeNew) {
             [self.delegate saveNewCar:self.carInfo];
         } else if (self.mode == CarInfoViewControllerModeEditing) {

@@ -170,23 +170,76 @@
                                     <action selector="eraseAllData:" destination="4rB-xt-j6m" eventType="touchUpInside" id="m9h-nH-u6l"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of cars:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2U-CD-aIz">
+                                <rect key="frame" x="16" y="80" width="288" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xuX-qU-uPh">
+                                <rect key="frame" x="105.5" y="112" width="110" height="36"/>
+                                <color key="backgroundColor" red="1" green="0.26770479409999998" blue="0.22929745039999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="ojB-1f-UR6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Clear Cars">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearCars:" destination="4rB-xt-j6m" eventType="touchUpInside" id="B80-2x-Ljd"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9i2-cp-eBi">
+                                <rect key="frame" x="16" y="164" width="288" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxj-io-jnL">
+                                <rect key="frame" x="100" y="196" width="120" height="36"/>
+                                <color key="backgroundColor" red="1" green="0.26770479409999998" blue="0.22929745039999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="Z2y-8A-BiK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Reset Filters">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearFilters:" destination="4rB-xt-j6m" eventType="touchUpInside" id="hze-aO-SAu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="yxj-io-jnL" firstAttribute="centerX" secondItem="5b3-cv-NdE" secondAttribute="centerX" id="9pT-Ar-Ifw"/>
+                            <constraint firstItem="R2U-CD-aIz" firstAttribute="leading" secondItem="5b3-cv-NdE" secondAttribute="leadingMargin" id="Hph-RH-Jz0"/>
+                            <constraint firstItem="R2U-CD-aIz" firstAttribute="trailing" secondItem="5b3-cv-NdE" secondAttribute="trailingMargin" id="PE7-xq-OdQ"/>
                             <constraint firstItem="h61-g3-FZe" firstAttribute="top" secondItem="9Ku-Bl-BgB" secondAttribute="bottom" constant="8" id="W62-U5-ayZ"/>
                             <constraint firstItem="9Ku-Bl-BgB" firstAttribute="trailing" secondItem="5b3-cv-NdE" secondAttribute="trailingMargin" id="aH5-am-FOa"/>
+                            <constraint firstItem="yxj-io-jnL" firstAttribute="top" secondItem="9i2-cp-eBi" secondAttribute="bottom" constant="8" id="bOw-jN-thJ"/>
+                            <constraint firstItem="9i2-cp-eBi" firstAttribute="leading" secondItem="5b3-cv-NdE" secondAttribute="leadingMargin" id="h54-A7-OWT"/>
                             <constraint firstItem="9Ku-Bl-BgB" firstAttribute="centerX" secondItem="5b3-cv-NdE" secondAttribute="centerX" id="jCN-tf-SHu"/>
                             <constraint firstItem="9Ku-Bl-BgB" firstAttribute="leading" secondItem="5b3-cv-NdE" secondAttribute="leadingMargin" id="noH-5h-5ZD"/>
+                            <constraint firstItem="9i2-cp-eBi" firstAttribute="top" secondItem="xuX-qU-uPh" secondAttribute="bottom" constant="16" id="pfQ-Ld-F29"/>
+                            <constraint firstItem="R2U-CD-aIz" firstAttribute="top" secondItem="jdJ-e5-bqW" secondAttribute="bottom" constant="16" id="qNR-S2-oUm"/>
+                            <constraint firstItem="xuX-qU-uPh" firstAttribute="centerX" secondItem="5b3-cv-NdE" secondAttribute="centerX" id="uXG-5R-hjs"/>
+                            <constraint firstItem="9i2-cp-eBi" firstAttribute="trailing" secondItem="5b3-cv-NdE" secondAttribute="trailingMargin" id="udx-fv-fx3"/>
+                            <constraint firstItem="xuX-qU-uPh" firstAttribute="top" secondItem="R2U-CD-aIz" secondAttribute="bottom" constant="8" id="ukf-fu-D9O"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Configuration" id="q0f-xo-C2i"/>
                     <connections>
+                        <outlet property="buttonClearCars" destination="xuX-qU-uPh" id="utq-7y-x2M"/>
+                        <outlet property="buttonClearFilters" destination="yxj-io-jnL" id="BKp-O5-kP3"/>
                         <outlet property="buttonEraseData" destination="9Ku-Bl-BgB" id="R17-yW-dyx"/>
+                        <outlet property="labelNumberOfCars" destination="R2U-CD-aIz" id="Sef-QZ-PhK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R4J-2L-dLP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1264" y="944"/>
+            <point key="canvasLocation" x="1263.75" y="943.30985915492954"/>
         </scene>
         <!--CarListTable-->
         <scene sceneID="mvj-mY-FAV">
@@ -363,7 +416,13 @@
                             <constraint firstAttribute="trailing" secondItem="dpm-iV-Hqu" secondAttribute="trailing" id="z0x-pd-kNT"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Search" id="ljV-5H-dwR"/>
+                    <navigationItem key="navigationItem" title="Search" id="ljV-5H-dwR">
+                        <barButtonItem key="rightBarButtonItem" title="Reset" id="QKj-Ie-ufk">
+                            <connections>
+                                <action selector="resetFilters:" destination="XNe-iP-JGK" id="aHd-aX-rtO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="dpm-iV-Hqu" id="GkS-Q9-af3"/>
                     </connections>

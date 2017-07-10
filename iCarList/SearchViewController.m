@@ -56,8 +56,7 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
     [cell.labelFilterName setText:filter.name];
-    [cell.imageFilterState setImage:[self imageFromFilterState:filter.state]];
-    [cell.imageFilterState setTintColor:[self imageTintFromFilterState:filter.state]];
+    [cell reloadImageWithState:filter.state];
 
     return cell;
 }
@@ -72,42 +71,6 @@
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
-- (UIImage *)imageFromFilterState:(FilterState)state {
-    UIImage *image;
-    switch(state) {
-        case FilterStateDisabled:
-            image = [UIImage imageNamed:@"FilterDisabled"];
-            break;
-            
-        case FilterStateAscending:
-            image = [UIImage imageNamed:@"FilterAscending"];
-            break;
-            
-        case FilterStateDescending:
-            image = [UIImage imageNamed:@"FilterDescending"];
-            break;
-    }
-    return image;
-}
-
-- (UIColor *) imageTintFromFilterState:(FilterState)state {
-    UIColor *color;
-    switch(state) {
-        case FilterStateDisabled:
-            color = [UIColor colorWithRed:186 / 255.0f green:42 / 255.0f blue:42 / 255.0f alpha:1.0f];
-            break;
-            
-        case FilterStateAscending:
-            color = [UIColor colorWithRed:42 / 255.0f green:168 / 255.0f blue:86 / 255.0f alpha:1.0f];
-            break;
-            
-        case FilterStateDescending:
-            color = [UIColor colorWithRed:42 / 255.0f green:69 / 255.0f blue:186 / 255.0f alpha:1.0f];
-            break;
-    }
-    return color;
-}
-                    
 - (FilterState)nextFilterStateFrom:(FilterState)state {
     switch(state) {
         case FilterStateDisabled:
@@ -148,6 +111,19 @@
         [alert addAction:actionOK];
         
         [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+- (IBAction)resetFilters:(id)sender {
+    NSIndexPath *indexPath;
+    for (int i = 0; i < filterArrayCopy.count; i++) {
+        if (i < 3) {
+            ((Filter *)filterArrayCopy[i]).state = FilterStateAscending;
+        } else {
+            ((Filter *)filterArrayCopy[i]).state = FilterStateDisabled;
+        }
+        indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 

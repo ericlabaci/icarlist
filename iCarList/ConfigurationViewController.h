@@ -10,8 +10,13 @@
 
 @interface ConfigurationViewController : UIViewController <UIAlertViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *labelNumberOfCars;
 @property (weak, nonatomic) IBOutlet UIButton *buttonEraseData;
+@property (weak, nonatomic) IBOutlet UIButton *buttonClearCars;
+@property (weak, nonatomic) IBOutlet UIButton *buttonClearFilters;
 
 - (IBAction)eraseAllData:(id)sender;
+- (IBAction)clearCars:(id)sender;
+- (IBAction)clearFilters:(id)sender;
 
 @end
