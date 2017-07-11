@@ -370,7 +370,7 @@
             webViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
             webViewController.modalPresentationCapturesStatusBarAppearance = YES;
             webViewController.delegate = self;
-            [self presentViewController:webViewController animated:YES completion:nil];
+            [self presentViewController:webViewController animated:NO completion:nil];
         }];
         
         //Alert action to cancel

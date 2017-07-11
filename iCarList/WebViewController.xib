@@ -63,19 +63,28 @@
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="chp-xm-SLK">
                     <rect key="frame" x="177.5" y="311.5" width="20" height="20"/>
                 </activityIndicatorView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nMi-1o-q3C">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="YdH-vT-Bc5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="8w3-AI-4E4"/>
                 <constraint firstItem="chp-xm-SLK" firstAttribute="centerX" secondItem="Zan-5Q-drS" secondAttribute="centerX" id="I7i-IL-Gb7"/>
                 <constraint firstItem="YdH-vT-Bc5" firstAttribute="top" secondItem="Zan-5Q-drS" secondAttribute="bottom" id="UQG-4E-7na"/>
+                <constraint firstItem="nMi-1o-q3C" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="WyV-10-zbC"/>
                 <constraint firstItem="Zan-5Q-drS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="aP7-MI-qKJ"/>
                 <constraint firstAttribute="bottom" secondItem="YdH-vT-Bc5" secondAttribute="bottom" id="hC9-UG-cul"/>
                 <constraint firstItem="chp-xm-SLK" firstAttribute="centerY" secondItem="Zan-5Q-drS" secondAttribute="centerY" id="hGk-IA-WSB"/>
+                <constraint firstItem="nMi-1o-q3C" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="iTU-uJ-R4Z"/>
                 <constraint firstAttribute="trailing" secondItem="YdH-vT-Bc5" secondAttribute="trailing" id="iYx-3e-ysS"/>
+                <constraint firstAttribute="trailing" secondItem="nMi-1o-q3C" secondAttribute="trailing" id="mub-zh-HPn"/>
                 <constraint firstItem="Zan-5Q-drS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="pdW-p9-gTX"/>
+                <constraint firstItem="Zan-5Q-drS" firstAttribute="top" secondItem="nMi-1o-q3C" secondAttribute="bottom" id="rZ6-bs-84e"/>
                 <constraint firstAttribute="trailing" secondItem="Zan-5Q-drS" secondAttribute="trailing" id="yw4-S6-4Nw"/>
             </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="163.5" y="50.5"/>
         </view>
     </objects>
