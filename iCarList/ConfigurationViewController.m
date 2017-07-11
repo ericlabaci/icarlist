@@ -86,6 +86,7 @@
         }
         //Synchronize changes
         [userDefaults synchronize];
+        [self reloadNumberOfCars];
     }];
     //Create action for Cancel button
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
