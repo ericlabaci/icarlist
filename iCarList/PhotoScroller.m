@@ -177,6 +177,10 @@
     return [self currentPage];
 }
 
+- (NSInteger)imageCount {
+    return imagesAdded;
+}
+
 - (void)updatePageControl {
     [pageControl setFrame:CGRectMake(width / 2 - imagesAdded * 6, height - 45, imagesAdded * 12, 37)];
     pageControl.numberOfPages = imagesAdded;

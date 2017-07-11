@@ -76,7 +76,7 @@
     //Create alert
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete all data?" message:@"This action cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
     //Create action for Delete button
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
         //Get user defaults and keys
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSArray *keys = [[userDefaults dictionaryRepresentation] allKeys];
@@ -91,7 +91,7 @@
     //Create action for Cancel button
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
     //Add actions to alert
-    [alert addAction:okAction];
+    [alert addAction:deleteAction];
     [alert addAction:cancelAction];
     
     //Present alert
@@ -102,7 +102,7 @@
     //Create alert
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete all cars?" message:@"This action cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
     //Create action for Clear Cars button
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
+    UIAlertAction *clearAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSArray *keys = [[userDefaults dictionaryRepresentation] allKeys];
         NSRange keyRange = KEY_RANGE;
@@ -118,7 +118,7 @@
     //Create action for Cancel button
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
     //Add actions to alert
-    [alert addAction:okAction];
+    [alert addAction:clearAction];
     [alert addAction:cancelAction];
     
     //Present alert
@@ -129,7 +129,7 @@
     //Create alert
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Reset sorting?" message:@"This action cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
     //Create action for Clear Cars button
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Reset" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
+    UIAlertAction *clearAction = [UIAlertAction actionWithTitle:@"Reset" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSArray *keys = [[userDefaults dictionaryRepresentation] allKeys];
         NSRange keyRange = KEY_RANGE;
@@ -144,7 +144,7 @@
     //Create action for Cancel button
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
     //Add actions to alert
-    [alert addAction:okAction];
+    [alert addAction:clearAction];
     [alert addAction:cancelAction];
     
     //Present alert

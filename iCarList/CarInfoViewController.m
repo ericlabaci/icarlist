@@ -179,6 +179,14 @@
         [self dismissKeyboard];
         [self switchModeTo:CarInfoViewControllerModeView];
         [self reload];
+    } else {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please fill all required fields" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+        
+        [alertController addAction:okAction];
+
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 
@@ -395,23 +403,35 @@
 }
 
 - (IBAction)deleteImage:(id)sender {
-    //Create alert
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete this image?" message:@"This action cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
-    //Create action for Clear Cars button
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
-        NSInteger index = [self.photoScroller currentImageIndex];
-        if ([self.photoScroller deleteImageAtIndex:index]) {
-            [imageArray removeObjectAtIndex:index];
-        }
-    }];
-    //Create action for Cancel button
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-    //Add actions to alert
-    [alert addAction:okAction];
-    [alert addAction:cancelAction];
+    if ([self.photoScroller imageCount] > 0) {
+        //Create alert
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete this image?" message:@"This action cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+        //Create action for Clear Cars button
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *act) {
+            NSInteger index = [self.photoScroller currentImageIndex];
+            if ([self.photoScroller deleteImageAtIndex:index]) {
+                [imageArray removeObjectAtIndex:index];
+            }
+        }];
+        //Create action for Cancel button
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+        //Add actions to alert
+        [alert addAction:okAction];
+        [alert addAction:cancelAction];
     
-    //Present alert
-    [self presentViewController:alert animated:YES completion:nil];
+        //Present alert
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        //Create alert
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No images added" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        //Create action for Ok button
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil];
+        //Add actions to alert
+        [alert addAction:okAction];
+        
+        //Present alert
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (void)attachImageFromURLAction:(NSString *)stringURL {

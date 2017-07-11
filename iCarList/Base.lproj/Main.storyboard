@@ -477,7 +477,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Make" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="frf-mH-ZM0" customClass="NextTextField">
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Make*" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="frf-mH-ZM0" customClass="NextTextField">
                                                 <rect key="frame" x="8" y="208" width="96" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -487,7 +487,7 @@
                                                     <outlet property="nextField" destination="4sl-EH-Sjg" id="sQy-0x-kQN"/>
                                                 </connections>
                                             </textField>
-                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Model" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4sl-EH-Sjg" userLabel="Text Field Model" customClass="NextTextField">
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Model*" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4sl-EH-Sjg" userLabel="Text Field Model" customClass="NextTextField">
                                                 <rect key="frame" x="112" y="208" width="96" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -497,7 +497,7 @@
                                                     <outlet property="nextField" destination="jfo-T3-eet" id="uFE-Uh-Ggd"/>
                                                 </connections>
                                             </textField>
-                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Year" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jfo-T3-eet" userLabel="Text Field Year" customClass="NextTextField">
+                                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Year*" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jfo-T3-eet" userLabel="Text Field Year" customClass="NextTextField">
                                                 <rect key="frame" x="216" y="208" width="96" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -812,7 +812,7 @@
         <image name="Delete1" width="48" height="48"/>
         <image name="HomeScreenBackground" width="960" height="640"/>
         <image name="InsertPhoto" width="48" height="48"/>
-        <image name="SortDisabled" width="16" height="16"/>
+        <image name="SortDisabled" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sU8-a1-Ve8"/>

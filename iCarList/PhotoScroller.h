@@ -25,5 +25,6 @@
 - (BOOL)deleteImageAtIndex:(NSInteger)index;
 
 - (NSInteger)currentImageIndex;
+- (NSInteger)imageCount;
 
 @end
